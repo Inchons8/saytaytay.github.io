@@ -1,562 +1,1489 @@
-<!doctype html><html lang=zh dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="链表 # 拿数组模拟链表,其实也就是静态链表. 静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即idx到最后但是前边还有很多未使用的节点,
-单链表 # #include<iostream> using namespace std; const int N = 100010; int e[N]; int ne[N]; int idx,head; void init(){ head = -1; idx = 0; } void add_to_head(int x){ e[idx] = x; ne[idx] = head; head = idx++; } //插入到下标为k的后面 void add(int k,int x){ e[idx] = x; ne[idx] = ne[k]; ne[k] = idx ++; } void del(int k){ if(k == -1) head = ne[head]; else ne[k] = ne[ne[k]]; } int main(){ int m; cin >> m; init(); while(m--){ char opt; cin >> opt; if(opt == 'H'){ int x; cin >> x; add_to_head(x); }else if(opt == 'D'){ int k; cin >> k; del(k-1); }else{ int k,x; cin >> k >>x; add(k - 1,x); } } int index = head; while(index !"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="数据结构"><meta property="og:description" content="链表 # 拿数组模拟链表,其实也就是静态链表. 静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即idx到最后但是前边还有很多未使用的节点,
-单链表 # #include<iostream> using namespace std; const int N = 100010; int e[N]; int ne[N]; int idx,head; void init(){ head = -1; idx = 0; } void add_to_head(int x){ e[idx] = x; ne[idx] = head; head = idx++; } //插入到下标为k的后面 void add(int k,int x){ e[idx] = x; ne[idx] = ne[k]; ne[k] = idx ++; } void del(int k){ if(k == -1) head = ne[head]; else ne[k] = ne[ne[k]]; } int main(){ int m; cin >> m; init(); while(m--){ char opt; cin >> opt; if(opt == 'H'){ int x; cin >> x; add_to_head(x); }else if(opt == 'D'){ int k; cin >> k; del(k-1); }else{ int k,x; cin >> k >>x; add(k - 1,x); } } int index = head; while(index !"><meta property="og:type" content="article"><meta property="og:url" content="http://ivylet.github.io/docs/chapter02/acwing/base/datestruct/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2024-08-25T20:30:47+08:00"><title>数据结构 | QBook</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script>
-<script defer src=/zh.search.min.4eb7993ef63f5c2c50e865c42dbdf9b032a352d679f97f19b434aa9de80d3717.js integrity="sha256-TreZPvY/XCxQ6GXELb35sDKjUtZ5+X8ZtDSqnegNNxc=" crossorigin=anonymous></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>QBook</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=搜索 aria-label=搜索 maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></label><ul><li><a href=http://ivylet.github.io/en/>English</a></li></ul></li></ul><ul><li><input type=checkbox id=section-903d3e7635db560eef69c6ad03432b92 class=toggle>
-<label for=section-903d3e7635db560eef69c6ad03432b92 class="flex justify-between"><a role=button>第一章|基础知识储备</a></label><ul><li><a href=/docs/chapter01/cpp-stl-argo/>STL中常用算法</a></li><li><a href=/docs/chapter01/cpp/>STL中常用算法1</a></li><li><a href=/docs/chapter01/datastru/>常用算法储备知识</a></li><li><a href=/docs/chapter01/cpp-stl-intro/>C++ STL</a></li><li><a href=/docs/chapter01/argo-datastru/>算法竞赛常用STL</a></li></ul></li><li><input type=checkbox id=section-144f7b511d4fbbff231a670ff00b5f9e class=toggle checked>
-<label for=section-144f7b511d4fbbff231a670ff00b5f9e class="flex justify-between"><a role=button>第二章|基础算法</a></label><ul><li><input type=checkbox id=section-9db364c0dccf0502e8049e61bd8b0d86 class=toggle checked>
-<label for=section-9db364c0dccf0502e8049e61bd8b0d86 class="flex justify-between"><a role=button>Acwing</a></label><ul><li><input type=checkbox id=section-96943a9cc0137d53acdca869bdf27124 class=toggle checked>
-<label for=section-96943a9cc0137d53acdca869bdf27124 class="flex justify-between"><a role=button>Base</a></label><ul><li><a href=/docs/chapter02/acwing/base/base-1/>基础算法一</a></li><li><a href=/docs/chapter02/acwing/base/datestruct/ class=active>数据结构</a></li><li><a href=/docs/chapter02/acwing/base/search_and_graph/>搜索与图论</a></li><li><a href=/docs/chapter02/acwing/base/greedy/>贪心</a></li></ul></li><li><input type=checkbox id=section-88eae5c1d766baf874d32d1908707564 class=toggle>
-<label for=section-88eae5c1d766baf874d32d1908707564 class="flex justify-between"><a role=button>Dp</a></label><ul><li><a href=/docs/chapter02/acwing/DP/DP/>DP</a></li><li><a href=/docs/chapter02/acwing/DP/package/>背包问题</a></li></ul></li><li><input type=checkbox id=section-a50d07f316054aeee9419b25ddf950a0 class=toggle>
-<label for=section-a50d07f316054aeee9419b25ddf950a0 class="flex justify-between"><a role=button>Math</a></label><ul><li><a href=/docs/chapter02/acwing/math/others/>其他</a></li><li><a href=/docs/chapter02/acwing/math/shulun/>数论</a></li></ul></li></ul></li><li><a href=/docs/chapter02/commonSolution/>常用思想方法</a></li></ul></li><li><input type=checkbox id=section-fca257306a653a028d58c47b763ab4c5 class=toggle>
-<label for=section-fca257306a653a028d58c47b763ab4c5 class="flex justify-between"><a role=button>第三章|计算机基础知识</a></label><ul><li><input type=checkbox id=section-c6a658a9eab81ef20c403bdfcfbb322f class=toggle>
-<label for=section-c6a658a9eab81ef20c403bdfcfbb322f class="flex justify-between"><a role=button>数据结构</a></label><ul><li><a href=/docs/chapter03/DS/cpter08/>排序算法</a><ul></ul></li></ul></li><li><input type=checkbox id=section-40effe6a2504b41caa4ca2922e36dd2a class=toggle>
-<label for=section-40effe6a2504b41caa4ca2922e36dd2a class="flex justify-between"><a role=button>计算机组成原理</a></label><ul><li><a href=/docs/chapter03/CO/cpt02/>第二章|数据的表示与运算</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt03/>第三章|存储系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt04/>第四章|指令系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt05/>第五章|中央控制器</a><ul></ul></li></ul></li><li><input type=checkbox id=section-90808d88c5fb0a7411c304bba41a80d8 class=toggle>
-<label for=section-90808d88c5fb0a7411c304bba41a80d8 class="flex justify-between"><a role=button>操作系统</a></label><ul><li><span>第一章|计算机系统概述</span><ul></ul></li><li><span>第二章|进程与线程</span><ul></ul></li><li><span>第三章|内存管理</span><ul></ul></li><li><span>第四章|文佳管理</span><ul></ul></li><li><span>第五章|I/O管理</span><ul></ul></li></ul></li><li><input type=checkbox id=section-25823a2461316869125b231cfddbbdc4 class=toggle>
-<label for=section-25823a2461316869125b231cfddbbdc4 class="flex justify-between"><a role=button>机器学习</a></label><ul><li><a href=/docs/chapter03/machine-learning/tools/>常用工具</a></li><li><a href=/docs/chapter03/machine-learning/LinerRegression/>线性回归</a><ul></ul></li></ul></li></ul></li><li><input type=checkbox id=section-574b1a2b668b65d846660d1f8c5a4bfb class=toggle>
-<label for=section-574b1a2b668b65d846660d1f8c5a4bfb class="flex justify-between"><a role=button>记录和其他</a></label><ul><li><input type=checkbox id=section-c1536e74d6e5fb6bc2e23ae4a04a06df class=toggle>
-<label for=section-c1536e74d6e5fb6bc2e23ae4a04a06df class="flex justify-between"><a role=button>暂时没名字</a></label><ul><li><a href=/docs/notes/other/00001/>无意识？！</a></li></ul></li><li><input type=checkbox id=section-a3b6ca56f01a783b7e83028f9b977c5b class=toggle>
-<label for=section-a3b6ca56f01a783b7e83028f9b977c5b class="flex justify-between"><a role=button>小记</a></label><ul><li><a href=/docs/notes/thinknote/00001/>暂且第一记</a></li><li><a href=/docs/notes/thinknote/00002/>一些话</a></li><li><a href=/docs/notes/thinknote/00003/>生活</a></li><li><a href=/docs/notes/thinknote/00000/>原初号</a></li></ul></li><li><span>notes</span><ul><li><a href=/docs/notes/readingnotes/0001/>《大问题》阅读随笔</a></li><li><a href=/docs/notes/readingnotes/0002/>拉康</a></li></ul></li></ul></li></ul><ul><li><a href=https://github.com/ivylet target=_blank rel=noopener>Github</a></li><li><a href=https://leetcode.cn/ target=_blank rel=noopener>Leetcode</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>数据结构</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#链表>链表</a><ul><li></li></ul></li><li><a href=#栈和队列>栈和队列</a><ul><li><a href=#模拟栈>模拟栈</a></li><li><a href=#模拟队列>模拟队列</a></li></ul></li><li><a href=#单调栈与单调队列>单调栈与单调队列</a><ul><li><a href=#单调栈>单调栈</a></li><li><a href=#单调队列>单调队列</a></li></ul></li><li><a href=#kmp>KMP</a></li><li><a href=#trie树字典树>Trie树(字典树)</a><ul><li></li></ul></li><li><a href=#并查集>并查集</a><ul><li></li></ul></li><li><a href=#哈希表>哈希表</a><ul><li><a href=#哈希表存储结构>哈希表存储结构</a></li><li><a href=#字符串哈希>字符串哈希</a></li></ul></li></ul></li></ul></nav></aside></header><article class=markdown><h2 id=链表>链表
-<a class=anchor href=#%e9%93%be%e8%a1%a8>#</a></h2><p>拿数组模拟链表,其实也就是静态链表.
-静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即<code>idx</code>到最后但是前边还有很多未使用的节点,</p><h4 id=单链表>单链表
-<a class=anchor href=#%e5%8d%95%e9%93%be%e8%a1%a8>#</a></h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>100010</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> e[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> ne[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> idx,head;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>(){
-</span></span><span style=display:flex><span>    head <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_to_head</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> head;
-</span></span><span style=display:flex><span>    head <span style=color:#f92672>=</span> idx<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>//插入到下标为k的后面
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add</span>(<span style=color:#66d9ef>int</span> k,<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> ne[k];
-</span></span><span style=display:flex><span>    ne[k] <span style=color:#f92672>=</span> idx <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>del</span>(<span style=color:#66d9ef>int</span> k){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(k <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) head <span style=color:#f92672>=</span> ne[head];
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> ne[k] <span style=color:#f92672>=</span> ne[ne[k]];
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> m;
-</span></span><span style=display:flex><span>    cin <span style=color:#f92672>&gt;&gt;</span> m;
-</span></span><span style=display:flex><span>    init();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(m<span style=color:#f92672>--</span>){
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> opt;
-</span></span><span style=display:flex><span>        cin <span style=color:#f92672>&gt;&gt;</span> opt;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;H&#39;</span>){
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> x;
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>            add_to_head(x);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;D&#39;</span>){
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> k;
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> k;
-</span></span><span style=display:flex><span>            del(k<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>else</span>{
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> k,x;
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> k <span style=color:#f92672>&gt;&gt;</span>x;
-</span></span><span style=display:flex><span>            add(k <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>,x);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> index <span style=color:#f92672>=</span> head;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(index <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>){
-</span></span><span style=display:flex><span>        cout <span style=color:#f92672>&lt;&lt;</span> e[index] <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34; &#34;</span>;
-</span></span><span style=display:flex><span>        index <span style=color:#f92672>=</span> ne[index];
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h4 id=双链表>双链表
-<a class=anchor href=#%e5%8f%8c%e9%93%be%e8%a1%a8>#</a></h4><p>所谓双链表就是每个节点含有前结点位置进而后节点位置.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>100010</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> pre[N],ne[N],e[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> idx;
-</span></span><span style=display:flex><span><span style=color:#75715e>// 定义0号位为头结点
-</span></span></span><span style=display:flex><span><span style=color:#75715e>// 定义1号位为尾结点
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>(){
-</span></span><span style=display:flex><span>    ne[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    pre[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    ne[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    pre[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_head</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> ne[<span style=color:#ae81ff>0</span>];
-</span></span><span style=display:flex><span>    pre[idx] <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    pre[ne[<span style=color:#ae81ff>0</span>]] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    ne[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    idx <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_tail</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    pre[idx] <span style=color:#f92672>=</span> pre[<span style=color:#ae81ff>1</span>];
-</span></span><span style=display:flex><span>    ne[pre[<span style=color:#ae81ff>1</span>]] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    pre[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    idx<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>del</span>(<span style=color:#66d9ef>int</span> k){
-</span></span><span style=display:flex><span>    ne[pre[k]] <span style=color:#f92672>=</span> ne[k];
-</span></span><span style=display:flex><span>    pre[ne[k]] <span style=color:#f92672>=</span>  pre[k];
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_left</span>(<span style=color:#66d9ef>int</span> k,<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> k;
-</span></span><span style=display:flex><span>    pre[idx] <span style=color:#f92672>=</span> pre[k];
-</span></span><span style=display:flex><span>    ne[pre[k]] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    pre[k] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    idx <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>add_right</span>(<span style=color:#66d9ef>int</span> k,<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> ne[k];
-</span></span><span style=display:flex><span>    pre[idx] <span style=color:#f92672>=</span> k;
-</span></span><span style=display:flex><span>    pre[ne[k]] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    ne[k] <span style=color:#f92672>=</span> idx;
-</span></span><span style=display:flex><span>    idx<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> m;
-</span></span><span style=display:flex><span>    cin <span style=color:#f92672>&gt;&gt;</span> m;
-</span></span><span style=display:flex><span>    init();
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(m <span style=color:#f92672>--</span>){
-</span></span><span style=display:flex><span>        string opt;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> k,x;
-</span></span><span style=display:flex><span>        cin <span style=color:#f92672>&gt;&gt;</span> opt;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;L&#34;</span>){
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>            add_head(x);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;R&#34;</span>){
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>            add_tail(x);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;D&#34;</span>){
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> k;
-</span></span><span style=display:flex><span>            del(k <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;IL&#34;</span>){
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> k <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>            add_left(k <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>,x);
-</span></span><span style=display:flex><span>        }<span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;IR&#34;</span>){
-</span></span><span style=display:flex><span>            cin <span style=color:#f92672>&gt;&gt;</span> k <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>            add_right(k <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>,x);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> j <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> ne[<span style=color:#ae81ff>0</span>]; ne[i] <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>; i <span style=color:#f92672>=</span> ne[i]){
-</span></span><span style=display:flex><span>        cout<span style=color:#f92672>&lt;&lt;</span> e[i] <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34; &#34;</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=栈和队列>栈和队列
-<a class=anchor href=#%e6%a0%88%e5%92%8c%e9%98%9f%e5%88%97>#</a></h2><p>使用数组实现基本的栈与队列</p><h3 id=模拟栈>模拟栈
-<a class=anchor href=#%e6%a8%a1%e6%8b%9f%e6%a0%88>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>1010</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//栈
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> stk[N],tt <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//入栈
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>stk[<span style=color:#f92672>++</span>tt] <span style=color:#f92672>=</span> elem;
-</span></span><span style=display:flex><span><span style=color:#75715e>//出栈
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>stk[tt<span style=color:#f92672>--</span>];
-</span></span><span style=display:flex><span><span style=color:#75715e>//栈是否为空
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> tt <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>  stack is empty
-</span></span><span style=display:flex><span><span style=color:#66d9ef>else</span> stack is not empty
-</span></span></code></pre></div><p>完整操作代码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>100010</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> stk[N],idx;
-</span></span><span style=display:flex><span><span style=color:#75715e>//初始化
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>(){
-</span></span><span style=display:flex><span>    idx <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//插入元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>push</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    stk[<span style=color:#f92672>++</span>idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//取出栈顶元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pop</span>(){
-</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> res <span style=color:#f92672>=</span> stk[idx<span style=color:#f92672>--</span>];
-</span></span><span style=display:flex><span>   <span style=color:#66d9ef>return</span> res;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//判断是否为空
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>isEmpty</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(idx <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) <span style=color:#66d9ef>return</span> true;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>return</span> false;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//获取栈顶元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pull</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> stk[idx];
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=模拟队列>模拟队列
-<a class=anchor href=#%e6%a8%a1%e6%8b%9f%e9%98%9f%e5%88%97>#</a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>1010</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//栈
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> queue[N],tt,hh;
-</span></span><span style=display:flex><span><span style=color:#75715e>//入队
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>queue[tail<span style=color:#f92672>++</span>] <span style=color:#f92672>=</span> elem;
-</span></span><span style=display:flex><span><span style=color:#75715e>//出队
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>queue[top<span style=color:#f92672>++</span>];
-</span></span></code></pre></div><p>完整操作</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>100010</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> queue[N],top,tail;
-</span></span><span style=display:flex><span><span style=color:#75715e>//初始化
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>init</span>(){
-</span></span><span style=display:flex><span>    top <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>    tail <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//插入元素到队尾
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>push</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>    queue[<span style=color:#f92672>++</span>tail] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//弹出队列队首元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pop</span>(){
-</span></span><span style=display:flex><span>   <span style=color:#66d9ef>int</span> res <span style=color:#f92672>=</span> queue[<span style=color:#f92672>++</span>top];
-</span></span><span style=display:flex><span>   <span style=color:#66d9ef>return</span> res;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//队列是否空
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>isEmpty</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(top <span style=color:#f92672>&gt;=</span> tail) 
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> true;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> 
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> false;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//返回队列队首元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>pull</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> queue[top <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>];
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=单调栈与单调队列>单调栈与单调队列
-<a class=anchor href=#%e5%8d%95%e8%b0%83%e6%a0%88%e4%b8%8e%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97>#</a></h2><h3 id=单调栈>单调栈
-<a class=anchor href=#%e5%8d%95%e8%b0%83%e6%a0%88>#</a></h3><h5 id=定义>定义
-<a class=anchor href=#%e5%ae%9a%e4%b9%89>#</a></h5><p>什么是单调栈?
-栈中的数据具有单调性.现在有一组数<code>10,3,7,4,12</code>从左到右依次入栈，则如果<strong>栈为空</strong>或<strong>入栈元素值小于栈顶元素值</strong>，则入栈；否则，如果入栈则会破坏栈的单调性，则需要把比入栈元素小的元素全部出栈。单调递减的栈反之。</p><h5 id=应用场景>应用场景
-<a class=anchor href=#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af>#</a></h5><p>给定一个序列,求每个元素左边(或右边)最近的比它小(或大)的元素.其实就是找逆序对,最近的两个构成逆序就输出,未找到就返回-1.<br>如下图所示,
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="链表#拿数组模拟链表,其实也就是静态链表. 静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即idx到最后但是前边还有很多未使用的节点,
+单链表##include&lt;iostream&gt; using namespace std; const int N = 100010; int e[N]; int ne[N]; int idx,head; void init(){ head = -1; idx = 0; } void add_to_head(int x){ e[idx] = x; ne[idx] = head; head = idx&#43;&#43;; } //插入到下标为k的后面 void add(int k,int x){ e[idx] = x; ne[idx] = ne[k]; ne[k] = idx &#43;&#43;; } void del(int k){ if(k == -1) head = ne[head]; else ne[k] = ne[ne[k]]; } int main(){ int m; cin &gt;&gt; m; init(); while(m--){ char opt; cin &gt;&gt; opt; if(opt == &#39;H&#39;){ int x; cin &gt;&gt; x; add_to_head(x); }else if(opt == &#39;D&#39;){ int k; cin &gt;&gt; k; del(k-1); }else{ int k,x; cin &gt;&gt; k &gt;&gt;x; add(k - 1,x); } } int index = head; while(index !">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="数据结构" />
+<meta property="og:description" content="链表#拿数组模拟链表,其实也就是静态链表. 静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即idx到最后但是前边还有很多未使用的节点,
+单链表##include&lt;iostream&gt; using namespace std; const int N = 100010; int e[N]; int ne[N]; int idx,head; void init(){ head = -1; idx = 0; } void add_to_head(int x){ e[idx] = x; ne[idx] = head; head = idx&#43;&#43;; } //插入到下标为k的后面 void add(int k,int x){ e[idx] = x; ne[idx] = ne[k]; ne[k] = idx &#43;&#43;; } void del(int k){ if(k == -1) head = ne[head]; else ne[k] = ne[ne[k]]; } int main(){ int m; cin &gt;&gt; m; init(); while(m--){ char opt; cin &gt;&gt; opt; if(opt == &#39;H&#39;){ int x; cin &gt;&gt; x; add_to_head(x); }else if(opt == &#39;D&#39;){ int k; cin &gt;&gt; k; del(k-1); }else{ int k,x; cin &gt;&gt; k &gt;&gt;x; add(k - 1,x); } } int index = head; while(index !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ivylet.github.io/docs/chapter02/acwing/base/datestruct/" /><meta property="article:section" content="docs" />
+
+<meta property="article:modified_time" content="2023-04-21T10:05:51+08:00" />
+
+<title>数据结构 | QBook</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css" integrity="sha256-SzX&#43;0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt&#43;5t7EDugY=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/zh.search.min.938dbb139c13517f4b5a1505599b05a036fd0c511277a38999242ec0cfbd05ad.js" integrity="sha256-k427E5wTUX9LWhUFWZsFoDb9DFESd6OJmSQuwM&#43;9Ba0=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>QBook</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="http://ivylet.github.io/en/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-903d3e7635db560eef69c6ad03432b92" class="toggle"  />
+    <label for="section-903d3e7635db560eef69c6ad03432b92" class="flex justify-between">
+      <a role="button" class="">第一章|基本语法储备</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-argo/" class="">STL中常用算法</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/datastru/" class="">常用算法储备知识</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-intro/" class="">C&#43;&#43; STL</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/argo-datastru/" class="">算法竞赛常用STL</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-144f7b511d4fbbff231a670ff00b5f9e" class="toggle" checked />
+    <label for="section-144f7b511d4fbbff231a670ff00b5f9e" class="flex justify-between">
+      <a role="button" class="">第二章|基础算法</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9db364c0dccf0502e8049e61bd8b0d86" class="toggle" checked />
+    <label for="section-9db364c0dccf0502e8049e61bd8b0d86" class="flex justify-between">
+      <a role="button" class="">Acwing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-96943a9cc0137d53acdca869bdf27124" class="toggle" checked />
+    <label for="section-96943a9cc0137d53acdca869bdf27124" class="flex justify-between">
+      <a role="button" class="">Base</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/base-1/" class="">基础算法一</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/datestruct/" class="active">数据结构</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/search_and_graph/" class="">搜索与图论</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/greedy/" class="">贪心</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-88eae5c1d766baf874d32d1908707564" class="toggle"  />
+    <label for="section-88eae5c1d766baf874d32d1908707564" class="flex justify-between">
+      <a role="button" class="">Dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/DP/" class="">DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/package/" class="">背包问题</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a50d07f316054aeee9419b25ddf950a0" class="toggle"  />
+    <label for="section-a50d07f316054aeee9419b25ddf950a0" class="flex justify-between">
+      <a role="button" class="">Math</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/others/" class="">其他</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/shulun/" class="">数论</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-fca257306a653a028d58c47b763ab4c5" class="toggle"  />
+    <label for="section-fca257306a653a028d58c47b763ab4c5" class="flex justify-between">
+      <a role="button" class="">408|内容</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c6a658a9eab81ef20c403bdfcfbb322f" class="toggle"  />
+    <label for="section-c6a658a9eab81ef20c403bdfcfbb322f" class="flex justify-between">
+      <a role="button" class="">数据结构</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/DS/cpter08/" class="">排序算法</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-40effe6a2504b41caa4ca2922e36dd2a" class="toggle"  />
+    <label for="section-40effe6a2504b41caa4ca2922e36dd2a" class="flex justify-between">
+      <a role="button" class="">计算机组成原理</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/CO/cpt02/" class="">第二章|数据的表示与运算</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-25823a2461316869125b231cfddbbdc4" class="toggle"  />
+    <label for="section-25823a2461316869125b231cfddbbdc4" class="flex justify-between">
+      <a role="button" class="">机器学习</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/tools/" class="">常用工具</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/LinerRegression/" class="">线性回归</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f9b7daea96f44f74565c58211968d9f8" class="toggle"  />
+    <label for="section-f9b7daea96f44f74565c58211968d9f8" class="flex justify-between">
+      <a href="/docs/chapter05/" class="">其他</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/" class="">寻找数组的中心索引</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="">搜索插入位置</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/part1/" class="">第一章</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/ivylet"  target="_blank" rel="noopener">
+        Github
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://leetcode.cn/"  target="_blank" rel="noopener">
+        Leetcode
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://themes.gohugo.io/hugo-book/"  target="_blank" rel="noopener">
+        Hugo Themes
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>数据结构</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#链表">链表</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#栈和队列">栈和队列</a>
+          <ul>
+            <li><a href="#模拟栈">模拟栈</a></li>
+            <li><a href="#模拟队列">模拟队列</a></li>
+          </ul>
+        </li>
+        <li><a href="#单调栈与单调队列">单调栈与单调队列</a>
+          <ul>
+            <li><a href="#单调栈">单调栈</a></li>
+            <li><a href="#单调队列">单调队列</a></li>
+          </ul>
+        </li>
+        <li><a href="#kmp">KMP</a></li>
+        <li><a href="#trie树字典树">Trie树(字典树)</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#并查集">并查集</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#哈希表">哈希表</a>
+          <ul>
+            <li><a href="#哈希表存储结构">哈希表存储结构</a></li>
+            <li><a href="#字符串哈希">字符串哈希</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="链表">
+  链表
+  <a class="anchor" href="#%e9%93%be%e8%a1%a8">#</a>
+</h2>
+<p>拿数组模拟链表,其实也就是静态链表.
+静态链表的优点是快,但是缺点是必须要提前分配足够空间,并且可能会出现假满状态,即<code>idx</code>到最后但是前边还有很多未使用的节点,</p>
+<h4 id="单链表">
+  单链表
+  <a class="anchor" href="#%e5%8d%95%e9%93%be%e8%a1%a8">#</a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100010</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> e[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ne[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> idx,head;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(){
+</span></span><span style="display:flex;"><span>    head <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_to_head</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> head;
+</span></span><span style="display:flex;"><span>    head <span style="color:#f92672">=</span> idx<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//插入到下标为k的后面
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> k,<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> ne[k];
+</span></span><span style="display:flex;"><span>    ne[k] <span style="color:#f92672">=</span> idx <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">del</span>(<span style="color:#66d9ef">int</span> k){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(k <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) head <span style="color:#f92672">=</span> ne[head];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> ne[k] <span style="color:#f92672">=</span> ne[ne[k]];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> m;
+</span></span><span style="display:flex;"><span>    init();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(m<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> opt;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> opt;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;H&#39;</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>            add_to_head(x);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;D&#39;</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> k;
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> k;
+</span></span><span style="display:flex;"><span>            del(k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> k,x;
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> k <span style="color:#f92672">&gt;&gt;</span>x;
+</span></span><span style="display:flex;"><span>            add(k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,x);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> head;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(index <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> e[index] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">=</span> ne[index];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="双链表">
+  双链表
+  <a class="anchor" href="#%e5%8f%8c%e9%93%be%e8%a1%a8">#</a>
+</h4>
+<p>所谓双链表就是每个节点含有前结点位置进而后节点位置.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100010</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> pre[N],ne[N],e[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> idx;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义0号位为头结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义1号位为尾结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(){
+</span></span><span style="display:flex;"><span>    ne[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    pre[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    ne[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    pre[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_head</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> ne[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    pre[idx] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    pre[ne[<span style="color:#ae81ff">0</span>]] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    ne[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_tail</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    pre[idx] <span style="color:#f92672">=</span> pre[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    ne[pre[<span style="color:#ae81ff">1</span>]] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    pre[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    idx<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">del</span>(<span style="color:#66d9ef">int</span> k){
+</span></span><span style="display:flex;"><span>    ne[pre[k]] <span style="color:#f92672">=</span> ne[k];
+</span></span><span style="display:flex;"><span>    pre[ne[k]] <span style="color:#f92672">=</span>  pre[k];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_left</span>(<span style="color:#66d9ef">int</span> k,<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> k;
+</span></span><span style="display:flex;"><span>    pre[idx] <span style="color:#f92672">=</span> pre[k];
+</span></span><span style="display:flex;"><span>    ne[pre[k]] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    pre[k] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add_right</span>(<span style="color:#66d9ef">int</span> k,<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> ne[k];
+</span></span><span style="display:flex;"><span>    pre[idx] <span style="color:#f92672">=</span> k;
+</span></span><span style="display:flex;"><span>    pre[ne[k]] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    ne[k] <span style="color:#f92672">=</span> idx;
+</span></span><span style="display:flex;"><span>    idx<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> m;
+</span></span><span style="display:flex;"><span>    init();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(m <span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        string opt;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> k,x;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> opt;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;L&#34;</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>            add_head(x);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;R&#34;</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>            add_tail(x);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;D&#34;</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> k;
+</span></span><span style="display:flex;"><span>            del(k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;IL&#34;</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> k <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>            add_left(k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,x);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;IR&#34;</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> k <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>            add_right(k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,x);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> ne[<span style="color:#ae81ff">0</span>]; ne[i] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i <span style="color:#f92672">=</span> ne[i]){
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span> e[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="栈和队列">
+  栈和队列
+  <a class="anchor" href="#%e6%a0%88%e5%92%8c%e9%98%9f%e5%88%97">#</a>
+</h2>
+<p>使用数组实现基本的栈与队列</p>
+<h3 id="模拟栈">
+  模拟栈
+  <a class="anchor" href="#%e6%a8%a1%e6%8b%9f%e6%a0%88">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> stk[N],tt <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//入栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>stk[<span style="color:#f92672">++</span>tt] <span style="color:#f92672">=</span> elem;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//出栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>stk[tt<span style="color:#f92672">--</span>];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//栈是否为空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> tt <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>  stack is empty
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> stack is not empty
+</span></span></code></pre></div><p>完整操作代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> stk[N],idx;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(){
+</span></span><span style="display:flex;"><span>    idx <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//插入元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    stk[<span style="color:#f92672">++</span>idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//取出栈顶元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pop</span>(){
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> stk[idx<span style="color:#f92672">--</span>];
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//判断是否为空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isEmpty</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(idx <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//获取栈顶元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pull</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> stk[idx];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="模拟队列">
+  模拟队列
+  <a class="anchor" href="#%e6%a8%a1%e6%8b%9f%e9%98%9f%e5%88%97">#</a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> queue[N],tt,hh;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//入队
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>queue[tail<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> elem;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//出队
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>queue[top<span style="color:#f92672">++</span>];
+</span></span></code></pre></div><p>完整操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> queue[N],top,tail;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(){
+</span></span><span style="display:flex;"><span>    top <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    tail <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//插入元素到队尾
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    queue[<span style="color:#f92672">++</span>tail] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//弹出队列队首元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pop</span>(){
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> queue[<span style="color:#f92672">++</span>top];
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//队列是否空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isEmpty</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(top <span style="color:#f92672">&gt;=</span> tail) 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回队列队首元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pull</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> queue[top <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="单调栈与单调队列">
+  单调栈与单调队列
+  <a class="anchor" href="#%e5%8d%95%e8%b0%83%e6%a0%88%e4%b8%8e%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97">#</a>
+</h2>
+<h3 id="单调栈">
+  单调栈
+  <a class="anchor" href="#%e5%8d%95%e8%b0%83%e6%a0%88">#</a>
+</h3>
+<h5 id="定义">
+  定义
+  <a class="anchor" href="#%e5%ae%9a%e4%b9%89">#</a>
+</h5>
+<p>什么是单调栈?
+栈中的数据具有单调性.现在有一组数<code>10,3,7,4,12</code>从左到右依次入栈，则如果<strong>栈为空</strong>或<strong>入栈元素值小于栈顶元素值</strong>，则入栈；否则，如果入栈则会破坏栈的单调性，则需要把比入栈元素小的元素全部出栈。单调递减的栈反之。</p>
+<h5 id="应用场景">
+  应用场景
+  <a class="anchor" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af">#</a>
+</h5>
+<p>给定一个序列,求每个元素左边(或右边)最近的比它小(或大)的元素.其实就是找逆序对,最近的两个构成逆序就输出,未找到就返回-1.<br>
+如下图所示,
 4找3,满足,则返回3;
 2往前找4,不满足,找3,也不满足,则返回-1;
 7往前找2(如果2满足,则无需考虑2之前的数据),满足则返回2.
 5往前找7,不满足,则去找2,满足,则返回2.
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202304061705690.jpg alt=4062adb643c4035eaf9b0c866d3d19e.jpg></p><p>如果满足逆序则保留,不满足则不保留
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202304061705690.jpg" alt="4062adb643c4035eaf9b0c866d3d19e.jpg" /></p>
+<p>如果满足逆序则保留,不满足则不保留
 (因为如果保留,则当前点不满足,上一个点也不满足,需要多遍历,
 例如序列<code>5 4 3 1 2</code>, 考虑<code>3</code>时,<code>5 4</code>是非逆序,那么<code>4</code>不满足,<code>5</code>同样不满足)
-这种情况使用栈最好,因为考虑的数据是按照后进先出的顺序读取.</p><h5 id=主要代码>主要代码
-<a class=anchor href=#%e4%b8%bb%e8%a6%81%e4%bb%a3%e7%a0%81>#</a></h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>10010</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> stk[N].idx <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n;
-</span></span><span style=display:flex><span>    cin <span style=color:#f92672>&gt;&gt;</span> n;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;</span> n ; i<span style=color:#f92672>++</span>){
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> x;
-</span></span><span style=display:flex><span>        cin <span style=color:#f92672>&gt;&gt;</span> x;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(idx <span style=color:#f92672>&amp;&amp;</span> stk[idx] <span style=color:#f92672>&gt;=</span> x) idx<span style=color:#f92672>--</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(idx) cout <span style=color:#f92672>&lt;&lt;</span> stk[idx] <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34; &#34;</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> cout <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34;-1&#34;</span> <span style=color:#f92672>&lt;&lt;</span> <span style=color:#e6db74>&#34; &#34;</span>;
-</span></span><span style=display:flex><span>        stk[<span style=color:#f92672>++</span>idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=单调队列>单调队列
-<a class=anchor href=#%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97>#</a></h3><h5 id=定义-1>定义
-<a class=anchor href=#%e5%ae%9a%e4%b9%89-1>#</a></h5><p>什么是单调队列?
-有单调性的队列!</p><h5 id=应用场景-1>应用场景
-<a class=anchor href=#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1>#</a></h5><p>输入一个数组,并且有长度为<code>k</code>的滑动窗口不断向右移动,求每移动一次后窗口中元素的最大(小)值.滑动窗口求最值.<br>先考虑暴力解法,再进行优化,考虑哪些没有用到却被操作.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>1000010</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,k;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> a[N],q[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> hh,tt;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    scanf(<span style=color:#e6db74>&#34;%d%d&#34;</span>,<span style=color:#f92672>&amp;</span>n,<span style=color:#f92672>&amp;</span>k);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;</span> n ; i<span style=color:#f92672>++</span>) scanf(<span style=color:#e6db74>&#34;%d&#34;</span>,<span style=color:#f92672>&amp;</span>a[i]);
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> hh <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, tt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;</span> n ; i<span style=color:#f92672>++</span> ){
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//判断队头是否已经滑出窗口,即当窗口长度为3时
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//,i = 3,hh = 0时,这个3长度的窗口 已经不包括 队首了 所以需要hh++
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//一般情况只需要加一次,所以用的是if 不是while
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(hh <span style=color:#f92672>&lt;=</span> tt <span style=color:#f92672>&amp;&amp;</span> i <span style=color:#f92672>-</span> k <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&gt;</span> q[hh]) hh<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//队列如果加入新元素后不是单调的,就要出队,
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//直到满足队列为单调的
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>// 比如 当前窗口内为 3 -1 -3 ,
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//那么3 -1 就是属于无效数据,因为-3是最小的
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//在往后移动的过程中,只要有-3 前边都不考虑
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//这种情况 也可以看成 不满足单调性
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>while</span>(hh <span style=color:#f92672>&lt;=</span> tt <span style=color:#f92672>&amp;&amp;</span> a[q[tt]] <span style=color:#f92672>&gt;=</span> a[i]) tt<span style=color:#f92672>--</span>;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//入队新元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        q[<span style=color:#f92672>++</span>tt] <span style=color:#f92672>=</span> i;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//只要过了k个数 就要输出队头元素
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(i <span style=color:#f92672>&gt;=</span> k <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) printf(<span style=color:#e6db74>&#34;%d &#34;</span>,a[q[hh]]); 
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    printf(<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
-</span></span><span style=display:flex><span>    hh <span style=color:#f92672>=</span> tt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; 
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;</span> n ; i <span style=color:#f92672>++</span>){
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(hh <span style=color:#f92672>&lt;=</span> tt <span style=color:#f92672>&amp;&amp;</span> i <span style=color:#f92672>-</span> k <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&gt;</span> q[hh]) hh<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(hh <span style=color:#f92672>&lt;=</span> tt <span style=color:#f92672>&amp;&amp;</span> a[q[tt]]<span style=color:#f92672>&lt;=</span> a[i]) tt<span style=color:#f92672>--</span>;
-</span></span><span style=display:flex><span>        q[<span style=color:#f92672>++</span>tt] <span style=color:#f92672>=</span> i;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(i <span style=color:#f92672>&gt;=</span> k <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) printf(<span style=color:#e6db74>&#34;%d &#34;</span>,a[q[hh]]);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=kmp>KMP
-<a class=anchor href=#kmp>#</a></h2><p>KMP是一种字符串匹配算法,该算法充分体现了利用已有信息降低操作数,即时间复杂度.
-完整代码</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> M <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e6</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>, N <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e5</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//定义 字符串 str 与 模板串 ptn
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>char</span> str[M],ptn[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,m;
-</span></span><span style=display:flex><span><span style=color:#75715e>// 定义next数组
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> ne[N];
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    scanf(<span style=color:#e6db74>&#34;%d%s%d%s&#34;</span>,<span style=color:#f92672>&amp;</span>n,ptn <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>,<span style=color:#f92672>&amp;</span>m,str<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>);
-</span></span><span style=display:flex><span>	<span style=color:#75715e>//next数组第一位是0 所以从第二位开始
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#75715e>// 计算next数组
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span> , j <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;=</span> n ; i<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>	    <span style=color:#75715e>// 如果j是0 就没办法再往前了
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	    <span style=color:#75715e>// 如果当前与
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>while</span>(j <span style=color:#f92672>&amp;&amp;</span> ptn[i] <span style=color:#f92672>!=</span> ptn[j <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>])j <span style=color:#f92672>=</span> ne[j];
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(ptn[i] <span style=color:#f92672>==</span> ptn[j<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) j <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        ne[i] <span style=color:#f92672>=</span> j;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span> , j <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; i <span style=color:#f92672>&lt;=</span> m ; i<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span>(j <span style=color:#f92672>&amp;&amp;</span> str[i] <span style=color:#f92672>!=</span> ptn[j <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>]) j <span style=color:#f92672>=</span> ne[j];
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(str[i] <span style=color:#f92672>==</span> ptn[j <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>]) j <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(j <span style=color:#f92672>==</span> n)
-</span></span><span style=display:flex><span>        {
-</span></span><span style=display:flex><span>            printf(<span style=color:#e6db74>&#34;%d &#34;</span>,i <span style=color:#f92672>-</span> n);
-</span></span><span style=display:flex><span>            j <span style=color:#f92672>=</span> ne[j];
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=trie树字典树>Trie树(字典树)
-<a class=anchor href=#trie%e6%a0%91%e5%ad%97%e5%85%b8%e6%a0%91>#</a></h2><p>“Trie这个名字取自“retrieval”，检索，因为Trie可以只用一个前缀便可以在一部字典中找到想要的单词。”</p><h5 id=什么是trie树>什么是Trie树
-<a class=anchor href=#%e4%bb%80%e4%b9%88%e6%98%aftrie%e6%a0%91>#</a></h5><p>高效地存储与查找字符串集合的数据结构.用树结构来存储字符串集合,举例:
-对于某字符串集合<code>{"abcde","abdcf","acde","acfd","abc","bd"}</code>.有下面这种存储方法.带星号表示从头往下查找到这个地方算一个字符串,
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202304160945183.jpg alt></p><h5 id=基本思想>基本思想
-<a class=anchor href=#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3>#</a></h5><p>如果是存小写字母组成的字符串集合,那么<code>a-z</code>对应的是<code>0-25</code>,如果是大写字母或其他情况同理.每次新加一个字符串中的一个字符,都要给这个字符上一个序号idx.每个需要都要记录它的子节点.比如<code>son[idx][u]</code>记录了序号为<code>idx</code>的子节点<code>u</code>的下一个节点指向的序号.<br>打个比方:字符串<code>abcd</code>存入时有这种情况</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>son[<span style=color:#ae81ff>0</span>][<span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;<span style=color:#75715e>//初始节点的后继节点a的序号是1
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>1</span>][<span style=color:#e6db74>&#39;b&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;<span style=color:#75715e>//序号为1的后继节点b的序号是2
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>2</span>][<span style=color:#e6db74>&#39;c&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>;<span style=color:#75715e>//序号为2的后继节点c的序号是3
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>3</span>][<span style=color:#e6db74>&#39;d&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span>;<span style=color:#75715e>//序号为3的后继节点d的序号是4
-</span></span></span></code></pre></div><p>如果我继续存入<code>abcf</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span>son[<span style=color:#ae81ff>0</span>][<span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;<span style=color:#75715e>//初始节点的后继节点a的序号是1
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>1</span>][<span style=color:#e6db74>&#39;b&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>;<span style=color:#75715e>//序号为1的后继节点b的序号是2
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>2</span>][<span style=color:#e6db74>&#39;c&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>;<span style=color:#75715e>//序号为2的后继节点c的序号是3
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//abcf中abc节点都已经存过,所以不需要增加序号
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//f属于abc这一子树的新节点,所以需要赋予新序号5
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//如果要查找abcf后续节点x,则需要从5开始
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//即son[5][x - &#39;a&#39;] = idx; idx表示 x 的序号,如果不存在则为0;
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>son[<span style=color:#ae81ff>3</span>][<span style=color:#e6db74>&#39;f&#39;</span> <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>;<span style=color:#75715e>//序号为3的后继节点f的序号是5
+这种情况使用栈最好,因为考虑的数据是按照后进先出的顺序读取.</p>
+<h5 id="主要代码">
+  主要代码
+  <a class="anchor" href="#%e4%b8%bb%e8%a6%81%e4%bb%a3%e7%a0%81">#</a>
+</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">10010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> stk[N].idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> n ; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> x;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(idx <span style="color:#f92672">&amp;&amp;</span> stk[idx] <span style="color:#f92672">&gt;=</span> x) idx<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(idx) cout <span style="color:#f92672">&lt;&lt;</span> stk[idx] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-1&#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        stk[<span style="color:#f92672">++</span>idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="单调队列">
+  单调队列
+  <a class="anchor" href="#%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97">#</a>
+</h3>
+<h5 id="定义-1">
+  定义
+  <a class="anchor" href="#%e5%ae%9a%e4%b9%89-1">#</a>
+</h5>
+<p>什么是单调队列?
+有单调性的队列!</p>
+<h5 id="应用场景-1">
+  应用场景
+  <a class="anchor" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-1">#</a>
+</h5>
+<p>输入一个数组,并且有长度为<code>k</code>的滑动窗口不断向右移动,求每移动一次后窗口中元素的最大(小)值.滑动窗口求最值.<br>
+先考虑暴力解法,再进行优化,考虑哪些没有用到却被操作.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000010</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n,k;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a[N],q[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> hh,tt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    scanf(<span style="color:#e6db74">&#34;%d%d&#34;</span>,<span style="color:#f92672">&amp;</span>n,<span style="color:#f92672">&amp;</span>k);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> n ; i<span style="color:#f92672">++</span>) scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>a[i]);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> hh <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, tt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> n ; i<span style="color:#f92672">++</span> ){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//判断队头是否已经滑出窗口,即当窗口长度为3时
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//,i = 3,hh = 0时,这个3长度的窗口 已经不包括 队首了 所以需要hh++
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//一般情况只需要加一次,所以用的是if 不是while
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(hh <span style="color:#f92672">&lt;=</span> tt <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">-</span> k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> q[hh]) hh<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//队列如果加入新元素后不是单调的,就要出队,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//直到满足队列为单调的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 比如 当前窗口内为 3 -1 -3 ,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//那么3 -1 就是属于无效数据,因为-3是最小的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//在往后移动的过程中,只要有-3 前边都不考虑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//这种情况 也可以看成 不满足单调性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span>(hh <span style="color:#f92672">&lt;=</span> tt <span style="color:#f92672">&amp;&amp;</span> a[q[tt]] <span style="color:#f92672">&gt;=</span> a[i]) tt<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//入队新元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        q[<span style="color:#f92672">++</span>tt] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//只要过了k个数 就要输出队头元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&gt;=</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) printf(<span style="color:#e6db74">&#34;%d &#34;</span>,a[q[hh]]); 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    hh <span style="color:#f92672">=</span> tt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> n ; i <span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(hh <span style="color:#f92672">&lt;=</span> tt <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">-</span> k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> q[hh]) hh<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(hh <span style="color:#f92672">&lt;=</span> tt <span style="color:#f92672">&amp;&amp;</span> a[q[tt]]<span style="color:#f92672">&lt;=</span> a[i]) tt<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        q[<span style="color:#f92672">++</span>tt] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&gt;=</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) printf(<span style="color:#e6db74">&#34;%d &#34;</span>,a[q[hh]]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="kmp">
+  KMP
+  <a class="anchor" href="#kmp">#</a>
+</h2>
+<p>KMP是一种字符串匹配算法,该算法充分体现了利用已有信息降低操作数,即时间复杂度.
+完整代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> M <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e6</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//定义 字符串 str 与 模板串 ptn
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> str[M],ptn[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n,m;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义next数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ne[N];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    scanf(<span style="color:#e6db74">&#34;%d%s%d%s&#34;</span>,<span style="color:#f92672">&amp;</span>n,ptn <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,<span style="color:#f92672">&amp;</span>m,str<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//next数组第一位是0 所以从第二位开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// 计算next数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> , j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;=</span> n ; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>	    <span style="color:#75715e">// 如果j是0 就没办法再往前了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	    <span style="color:#75715e">// 如果当前与
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span>(j <span style="color:#f92672">&amp;&amp;</span> ptn[i] <span style="color:#f92672">!=</span> ptn[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])j <span style="color:#f92672">=</span> ne[j];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(ptn[i] <span style="color:#f92672">==</span> ptn[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]) j <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        ne[i] <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> , j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;=</span> m ; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(j <span style="color:#f92672">&amp;&amp;</span> str[i] <span style="color:#f92672">!=</span> ptn[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) j <span style="color:#f92672">=</span> ne[j];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(str[i] <span style="color:#f92672">==</span> ptn[j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) j <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(j <span style="color:#f92672">==</span> n)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            printf(<span style="color:#e6db74">&#34;%d &#34;</span>,i <span style="color:#f92672">-</span> n);
+</span></span><span style="display:flex;"><span>            j <span style="color:#f92672">=</span> ne[j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="trie树字典树">
+  Trie树(字典树)
+  <a class="anchor" href="#trie%e6%a0%91%e5%ad%97%e5%85%b8%e6%a0%91">#</a>
+</h2>
+<p>“Trie这个名字取自“retrieval”，检索，因为Trie可以只用一个前缀便可以在一部字典中找到想要的单词。”</p>
+<h5 id="什么是trie树">
+  什么是Trie树
+  <a class="anchor" href="#%e4%bb%80%e4%b9%88%e6%98%aftrie%e6%a0%91">#</a>
+</h5>
+<p>高效地存储与查找字符串集合的数据结构.用树结构来存储字符串集合,举例:
+对于某字符串集合<code>{&quot;abcde&quot;,&quot;abdcf&quot;,&quot;acde&quot;,&quot;acfd&quot;,&quot;abc&quot;,&quot;bd&quot;}</code>.有下面这种存储方法.带星号表示从头往下查找到这个地方算一个字符串,
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202304160945183.jpg" alt="" /></p>
+<h5 id="基本思想">
+  基本思想
+  <a class="anchor" href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3">#</a>
+</h5>
+<p>如果是存小写字母组成的字符串集合,那么<code>a-z</code>对应的是<code>0-25</code>,如果是大写字母或其他情况同理.每次新加一个字符串中的一个字符,都要给这个字符上一个序号idx.每个需要都要记录它的子节点.比如<code>son[idx][u]</code>记录了序号为<code>idx</code>的子节点<code>u</code>的下一个节点指向的序号.<br>
+打个比方:字符串<code>abcd</code>存入时有这种情况</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>son[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#75715e">//初始节点的后继节点a的序号是1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">1</span>][<span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#75715e">//序号为1的后继节点b的序号是2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">2</span>][<span style="color:#e6db74">&#39;c&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#75715e">//序号为2的后继节点c的序号是3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">3</span>][<span style="color:#e6db74">&#39;d&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;<span style="color:#75715e">//序号为3的后继节点d的序号是4
+</span></span></span></code></pre></div><p>如果我继续存入<code>abcf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>son[<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#75715e">//初始节点的后继节点a的序号是1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">1</span>][<span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#75715e">//序号为1的后继节点b的序号是2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">2</span>][<span style="color:#e6db74">&#39;c&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#75715e">//序号为2的后继节点c的序号是3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//abcf中abc节点都已经存过,所以不需要增加序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//f属于abc这一子树的新节点,所以需要赋予新序号5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//如果要查找abcf后续节点x,则需要从5开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//即son[5][x - &#39;a&#39;] = idx; idx表示 x 的序号,如果不存在则为0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>son[<span style="color:#ae81ff">3</span>][<span style="color:#e6db74">&#39;f&#39;</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;<span style="color:#75715e">//序号为3的后继节点f的序号是5
 </span></span></span></code></pre></div><p>那么又一个问题来了。我怎么知道往下哪个是字符串结束呢？比如我存入<code>abc</code>和<code>abcd</code>两个字符串。怎么判断<code>abc</code>在里面。这里我们使用一个<code>cnt[p]</code>数组，该数组存的是以序号p的字符结尾的字符串个数. 。
-依托这个数组,我们可以得到在字符串集合<code>{"abc","abcd"}</code>中<code>cnt[3] = 1; cnt[4] = 1;</code>代表以字符序号为3和4结尾的字符串各出现了一次.</p><h5 id=主要代码-1>主要代码
-<a class=anchor href=#%e4%b8%bb%e8%a6%81%e4%bb%a3%e7%a0%81-1>#</a></h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>1e5</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>10</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//son[i][j] 表示编号为i的j儿子的后继节点数
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> son[N][<span style=color:#ae81ff>26</span>],cnt[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>char</span> str[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> n,idx;
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>(<span style=color:#66d9ef>char</span> x[])
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> p <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; x[i] ;i<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> x[i] <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//如果不存在节点，则新建一个，然后新节点标号为++idx。
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//++idx表示给新节点上个序号,盖个出生证明
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span>son[p][u]) son[p][u] <span style=color:#f92672>=</span> <span style=color:#f92672>++</span>idx;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//如何找到下一个节点?
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//son[p][u]为节点序号为
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//p的节点的子节点为u的节点的下一个节点序号
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        p <span style=color:#f92672>=</span> son[p][u];
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#75715e>//表示以节点序号为p结尾的字符串个数.
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    cnt[p] <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>query</span>(<span style=color:#66d9ef>char</span> x[])
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> p <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span> ; x[i] ; i<span style=color:#f92672>++</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> x[i] <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;a&#39;</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#f92672>!</span>son[p][u]) <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span> ;
-</span></span><span style=display:flex><span>        p <span style=color:#f92672>=</span> son[p][u];
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> cnt[p];
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>()
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    scanf(<span style=color:#e6db74>&#34;%d&#34;</span>,<span style=color:#f92672>&amp;</span>n);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(n <span style=color:#f92672>--</span>){
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> opt;
-</span></span><span style=display:flex><span>        cin <span style=color:#f92672>&gt;&gt;</span> opt <span style=color:#f92672>&gt;&gt;</span> str;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;I&#39;</span>)insert(str);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> printf(<span style=color:#e6db74>&#34;%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>,query(str));
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;    
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=并查集>并查集
-<a class=anchor href=#%e5%b9%b6%e6%9f%a5%e9%9b%86>#</a></h2><h5 id=应用场景-2>应用场景
-<a class=anchor href=#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-2>#</a></h5><p>适用于维护集合之间的合并，与查询两个数是否在同一个集合内的情况。</p><h5 id=核心代码>核心代码
-<a class=anchor href=#%e6%a0%b8%e5%bf%83%e4%bb%a3%e7%a0%81>#</a></h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>int</span> p[N];
-</span></span><span style=display:flex><span><span style=color:#75715e>// 压缩路径版本
-</span></span></span><span style=display:flex><span><span style=color:#75715e>// 即每次查询 都将集合中的节点指向根节点
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>find</span>(<span style=color:#66d9ef>int</span> x){
-</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (p[x] <span style=color:#f92672>!=</span> x) p[x] <span style=color:#f92672>=</span> find(p[x]);
-</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> p[x];
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>// 预处理，代表每一个数都属于单独的集合，集合编号为i
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span> ; i <span style=color:#f92672>&lt;=</span> n ; i<span style=color:#f92672>++</span>) p[i] <span style=color:#f92672>=</span> i;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>//合并操作
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>merge</span>(<span style=color:#66d9ef>int</span> a,<span style=color:#66d9ef>int</span> b)
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>	p[find(a)] <span style=color:#f92672>=</span> find(b);
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#75715e>//查询操作
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>query</span>(<span style=color:#66d9ef>int</span> a,<span style=color:#66d9ef>int</span> b)
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span>(find(a) <span style=color:#f92672>==</span> find(b)) puts(<span style=color:#e6db74>&#34;Yes&#34;</span>);
-</span></span><span style=display:flex><span>	<span style=color:#66d9ef>else</span> puts(<span style=color:#e6db74>&#34;No&#34;</span>);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h2 id=哈希表>哈希表
-<a class=anchor href=#%e5%93%88%e5%b8%8c%e8%a1%a8>#</a></h2><h3 id=哈希表存储结构>哈希表存储结构
-<a class=anchor href=#%e5%93%88%e5%b8%8c%e8%a1%a8%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84>#</a></h3><p>将一个集合中的数通过一个函数映射到另外一个集合中。例如离散化中，将大范围中的数据映射到小范围的区间上，这是一种哈希映射，但这种映射需要保存前后顺序，属于特殊的哈希映射。哈希表一般指比较一般情况下的映射。<br>但是哈希映射函数可能会出现哈希冲突的情况，比如有一个数据范围为<code>0~1e9</code>的数组，映射到<code>0~1e5</code>范围内，使用的映射函数为<code>h(x) = x MOD 1e5</code>，这种情况可能会出现某两个数经过哈希映射函数计算的哈希值相同，就发生了冲突。这就是所谓的哈希冲突，解决哈希冲突一般有两种方法：开放寻址法和拉链法。</p><h4 id=开放寻址法>开放寻址法
-<a class=anchor href=#%e5%bc%80%e6%94%be%e5%af%bb%e5%9d%80%e6%b3%95>#</a></h4><p>所谓开放寻址，就是某个点如果发生哈希冲突，就在这个点哈希值加一位置插入数据，如果这个点还有数，就继续往后加，直到为空。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>//一般取质数情况下，发生哈希冲突的概率较低。
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//开放寻址法 一般要数组开大一点.
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//因为h[N]存的是哈希值为N的值是多少
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>200003</span>,null <span style=color:#f92672>=</span> <span style=color:#ae81ff>0x3f3f3f3f</span>;
-</span></span><span style=display:flex><span><span style=color:#75715e>//按位寻址法
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> h[N];
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>find</span>(<span style=color:#66d9ef>int</span> x)
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>   <span style=color:#75715e>//负数模后是负数，所以加N
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> (x <span style=color:#f92672>%</span> N <span style=color:#f92672>+</span> N) <span style=color:#f92672>%</span> N;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(h[k] <span style=color:#f92672>!=</span> null <span style=color:#f92672>&amp;&amp;</span> h[k] <span style=color:#f92672>!=</span> x){
-</span></span><span style=display:flex><span>        k<span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//找到头还没找到 就从0开始
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//一般不会出现找不到的情况，有的话就把数组开大
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>if</span>(k <span style=color:#f92672>==</span> N) k <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> k;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n;
-</span></span><span style=display:flex><span>    scanf(<span style=color:#e6db74>&#34;%d&#34;</span>,<span style=color:#f92672>&amp;</span>n);
-</span></span><span style=display:flex><span>    <span style=color:#75715e>//初始化全部为null 以便标记该位置没存过数
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    memset (h, null , <span style=color:#66d9ef>sizeof</span> h);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(n <span style=color:#f92672>--</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> opt[<span style=color:#ae81ff>2</span>];
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> x;
-</span></span><span style=display:flex><span>        scanf(<span style=color:#e6db74>&#34;%s%d&#34;</span>,opt,<span style=color:#f92672>&amp;</span>x);
-</span></span><span style=display:flex><span>        <span style=color:#75715e>//先找到位置，如果是没有的话就返回null。
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//插入就是把null赋值为x
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#75715e>//查找的话 是null就是没找到
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>        <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> find(x);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#f92672>*</span>opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;I&#39;</span>) h[k] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>
-</span></span><span style=display:flex><span>        {
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(h[k] <span style=color:#f92672>!=</span> null) puts(<span style=color:#e6db74>&#34;Yes&#34;</span>);
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> puts(<span style=color:#e6db74>&#34;No&#34;</span>);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h4 id=拉链法>拉链法
-<a class=anchor href=#%e6%8b%89%e9%93%be%e6%b3%95>#</a></h4><p>所谓拉链法，就是某个点如果发生哈希冲突，就在这个点上建立一个链表，然后把数加到链表上。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>#include</span><span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cstring&gt;</span><span style=color:#75715e>
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>using</span> <span style=color:#66d9ef>namespace</span> std;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>//一般取质数情况下，发生哈希冲突的概率较低。
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#66d9ef>int</span> N <span style=color:#f92672>=</span> <span style=color:#ae81ff>100003</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e>// 拉链法
-</span></span></span><span style=display:flex><span><span style=color:#75715e>//定义链表，e[idx]存序号为idx的数值，ne[idx]存序号为idx的下一项;
-</span></span></span><span style=display:flex><span><span style=color:#75715e>// h[k]存哈希值为k的第一个数的idx序号
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#66d9ef>int</span> h[N],e[N],ne[N],idx;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>insert</span>(<span style=color:#66d9ef>int</span> x)
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#75715e>//负数模后是负数，所以加N
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> (x <span style=color:#f92672>%</span> N <span style=color:#f92672>+</span> N) <span style=color:#f92672>%</span> N;
-</span></span><span style=display:flex><span>    e[idx] <span style=color:#f92672>=</span> x;
-</span></span><span style=display:flex><span>    ne[idx] <span style=color:#f92672>=</span> h[k];
-</span></span><span style=display:flex><span>    h[k] <span style=color:#f92672>=</span> idx <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>bool</span> <span style=color:#a6e22e>find</span>(<span style=color:#66d9ef>int</span> x)
-</span></span><span style=display:flex><span>{
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> k <span style=color:#f92672>=</span> (x <span style=color:#f92672>%</span> N <span style=color:#f92672>+</span> N) <span style=color:#f92672>%</span> N;
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span>(<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> h[k]; i <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span> ; i <span style=color:#f92672>=</span> ne[i])
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(e[i] <span style=color:#f92672>==</span> x) <span style=color:#66d9ef>return</span> true;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> false;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span><span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>(){
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> n;
-</span></span><span style=display:flex><span>    scanf(<span style=color:#e6db74>&#34;%d&#34;</span>,<span style=color:#f92672>&amp;</span>n);
-</span></span><span style=display:flex><span>    <span style=color:#75715e>//初始化全部为-1 以便标记为空
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    memset (h, <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span> , <span style=color:#66d9ef>sizeof</span> h);
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span>(n <span style=color:#f92672>--</span>)
-</span></span><span style=display:flex><span>    {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> opt[<span style=color:#ae81ff>2</span>];
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> x;
-</span></span><span style=display:flex><span>        scanf(<span style=color:#e6db74>&#34;%s%d&#34;</span>,opt,<span style=color:#f92672>&amp;</span>x);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#f92672>*</span>opt <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;I&#39;</span>) insert(x);
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span>
-</span></span><span style=display:flex><span>        {
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span>(find(x)) puts(<span style=color:#e6db74>&#34;Yes&#34;</span>);
-</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span> puts(<span style=color:#e6db74>&#34;No&#34;</span>);
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div><h3 id=字符串哈希>字符串哈希
-<a class=anchor href=#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%93%88%e5%b8%8c>#</a></h3><p>将字符串转换为一串数字然后计算哈希值存入哈希表，如<code>abcde</code>中每个字母对应的ASCII码中的编号按顺序为<code>1 2 3 4 5</code>（计算方法为<code>'a' - 'a' + 1</code>，<code>'b' - 'a' + 1</code>，<code>'c' - 'a' + 1</code>等）那么可以将这段数字转换为<code>P</code>进制数，这样就可以区分不同字符串对应的哈希值。但是如果字符串位数比较多，会出现哈希值溢出的情况，那么就需要取模<code>Q</code>运算！</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>//一般情况下
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>P <span style=color:#f92672>=</span> <span style=color:#ae81ff>131</span>;<span style=color:#75715e>//P = 131;
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>Q <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&lt;&lt;</span> <span style=color:#ae81ff>64</span>;
-</span></span></code></pre></div><p>也可以利用这个算法实现前缀哈希，即某个字符串前<code>i</code>位的哈希值。然后我们就可以通过这个数组计算某个子串的哈希值。</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/commit/69a59e548abf11740ab5161c7afda829ee1d4128 title='最后修改者 saytaytay | August 25, 2024' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>August 25, 2024</span></a></div><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter02/acwing/base/datestruct.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>编辑本页</span></a></div><footer id=footer><div class=container>&copy; 2024, By ivylet</a>。</div></footer></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#链表>链表</a><ul><li></li></ul></li><li><a href=#栈和队列>栈和队列</a><ul><li><a href=#模拟栈>模拟栈</a></li><li><a href=#模拟队列>模拟队列</a></li></ul></li><li><a href=#单调栈与单调队列>单调栈与单调队列</a><ul><li><a href=#单调栈>单调栈</a></li><li><a href=#单调队列>单调队列</a></li></ul></li><li><a href=#kmp>KMP</a></li><li><a href=#trie树字典树>Trie树(字典树)</a><ul><li></li></ul></li><li><a href=#并查集>并查集</a><ul><li></li></ul></li><li><a href=#哈希表>哈希表</a><ul><li><a href=#哈希表存储结构>哈希表存储结构</a></li><li><a href=#字符串哈希>字符串哈希</a></li></ul></li></ul></li></ul></nav></div></aside></main></body></html>
+依托这个数组,我们可以得到在字符串集合<code>{&quot;abc&quot;,&quot;abcd&quot;}</code>中<code>cnt[3] = 1; cnt[4] = 1;</code>代表以字符序号为3和4结尾的字符串各出现了一次.</p>
+<h5 id="主要代码-1">
+  主要代码
+  <a class="anchor" href="#%e4%b8%bb%e8%a6%81%e4%bb%a3%e7%a0%81-1">#</a>
+</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//son[i][j] 表示编号为i的j儿子的后继节点数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> son[N][<span style="color:#ae81ff">26</span>],cnt[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> str[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n,idx;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">char</span> x[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; x[i] ;i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> u <span style="color:#f92672">=</span> x[i] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//如果不存在节点，则新建一个，然后新节点标号为++idx。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//++idx表示给新节点上个序号,盖个出生证明
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>son[p][u]) son[p][u] <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>idx;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//如何找到下一个节点?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//son[p][u]为节点序号为
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//p的节点的子节点为u的节点的下一个节点序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        p <span style="color:#f92672">=</span> son[p][u];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//表示以节点序号为p结尾的字符串个数.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cnt[p] <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">query</span>(<span style="color:#66d9ef">char</span> x[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; x[i] ; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> u <span style="color:#f92672">=</span> x[i] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>son[p][u]) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span> ;
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> son[p][u];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cnt[p];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>n);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> opt;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> opt <span style="color:#f92672">&gt;&gt;</span> str;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span>)insert(str);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,query(str));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="并查集">
+  并查集
+  <a class="anchor" href="#%e5%b9%b6%e6%9f%a5%e9%9b%86">#</a>
+</h2>
+<h5 id="应用场景-2">
+  应用场景
+  <a class="anchor" href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af-2">#</a>
+</h5>
+<p>适用于维护集合之间的合并，与查询两个数是否在同一个集合内的情况。</p>
+<h5 id="核心代码">
+  核心代码
+  <a class="anchor" href="#%e6%a0%b8%e5%bf%83%e4%bb%a3%e7%a0%81">#</a>
+</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> p[N];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 压缩路径版本
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 即每次查询 都将集合中的节点指向根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (p[x] <span style="color:#f92672">!=</span> x) p[x] <span style="color:#f92672">=</span> find(p[x]);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> p[x];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 预处理，代表每一个数都属于单独的集合，集合编号为i
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> ; i <span style="color:#f92672">&lt;=</span> n ; i<span style="color:#f92672">++</span>) p[i] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//合并操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">merge</span>(<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	p[find(a)] <span style="color:#f92672">=</span> find(b);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//查询操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">query</span>(<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(find(a) <span style="color:#f92672">==</span> find(b)) puts(<span style="color:#e6db74">&#34;Yes&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span> puts(<span style="color:#e6db74">&#34;No&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="哈希表">
+  哈希表
+  <a class="anchor" href="#%e5%93%88%e5%b8%8c%e8%a1%a8">#</a>
+</h2>
+<h3 id="哈希表存储结构">
+  哈希表存储结构
+  <a class="anchor" href="#%e5%93%88%e5%b8%8c%e8%a1%a8%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84">#</a>
+</h3>
+<p>将一个集合中的数通过一个函数映射到另外一个集合中。例如离散化中，将大范围中的数据映射到小范围的区间上，这是一种哈希映射，但这种映射需要保存前后顺序，属于特殊的哈希映射。哈希表一般指比较一般情况下的映射。<br>
+但是哈希映射函数可能会出现哈希冲突的情况，比如有一个数据范围为<code>0~1e9</code>的数组，映射到<code>0~1e5</code>范围内，使用的映射函数为<code>h(x) = x MOD 1e5</code>，这种情况可能会出现某两个数经过哈希映射函数计算的哈希值相同，就发生了冲突。这就是所谓的哈希冲突，解决哈希冲突一般有两种方法：开放寻址法和拉链法。</p>
+<h4 id="开放寻址法">
+  开放寻址法
+  <a class="anchor" href="#%e5%bc%80%e6%94%be%e5%af%bb%e5%9d%80%e6%b3%95">#</a>
+</h4>
+<p>所谓开放寻址，就是某个点如果发生哈希冲突，就在这个点哈希值加一位置插入数据，如果这个点还有数，就继续往后加，直到为空。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//一般取质数情况下，发生哈希冲突的概率较低。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//开放寻址法 一般要数组开大一点.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//因为h[N]存的是哈希值为N的值是多少
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">200003</span>,null <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3f3f3f3f</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//按位寻址法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> h[N];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span> x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">//负数模后是负数，所以加N
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> (x <span style="color:#f92672">%</span> N <span style="color:#f92672">+</span> N) <span style="color:#f92672">%</span> N;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(h[k] <span style="color:#f92672">!=</span> null <span style="color:#f92672">&amp;&amp;</span> h[k] <span style="color:#f92672">!=</span> x){
+</span></span><span style="display:flex;"><span>        k<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//找到头还没找到 就从0开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//一般不会出现找不到的情况，有的话就把数组开大
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(k <span style="color:#f92672">==</span> N) k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>n);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//初始化全部为null 以便标记该位置没存过数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    memset (h, null , <span style="color:#66d9ef">sizeof</span> h);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">--</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> opt[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%s%d&#34;</span>,opt,<span style="color:#f92672">&amp;</span>x);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//先找到位置，如果是没有的话就返回null。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//插入就是把null赋值为x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//查找的话 是null就是没找到
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> find(x);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">*</span>opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span>) h[k] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(h[k] <span style="color:#f92672">!=</span> null) puts(<span style="color:#e6db74">&#34;Yes&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> puts(<span style="color:#e6db74">&#34;No&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="拉链法">
+  拉链法
+  <a class="anchor" href="#%e6%8b%89%e9%93%be%e6%b3%95">#</a>
+</h4>
+<p>所谓拉链法，就是某个点如果发生哈希冲突，就在这个点上建立一个链表，然后把数加到链表上。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//一般取质数情况下，发生哈希冲突的概率较低。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100003</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 拉链法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//定义链表，e[idx]存序号为idx的数值，ne[idx]存序号为idx的下一项;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// h[k]存哈希值为k的第一个数的idx序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> h[N],e[N],ne[N],idx;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">int</span> x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//负数模后是负数，所以加N
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> (x <span style="color:#f92672">%</span> N <span style="color:#f92672">+</span> N) <span style="color:#f92672">%</span> N;
+</span></span><span style="display:flex;"><span>    e[idx] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    ne[idx] <span style="color:#f92672">=</span> h[k];
+</span></span><span style="display:flex;"><span>    h[k] <span style="color:#f92672">=</span> idx <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span> x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> (x <span style="color:#f92672">%</span> N <span style="color:#f92672">+</span> N) <span style="color:#f92672">%</span> N;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> h[k]; i <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> ; i <span style="color:#f92672">=</span> ne[i])
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(e[i] <span style="color:#f92672">==</span> x) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>n);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//初始化全部为-1 以便标记为空
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    memset (h, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> , <span style="color:#66d9ef">sizeof</span> h);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(n <span style="color:#f92672">--</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> opt[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>        scanf(<span style="color:#e6db74">&#34;%s%d&#34;</span>,opt,<span style="color:#f92672">&amp;</span>x);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">*</span>opt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span>) insert(x);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(find(x)) puts(<span style="color:#e6db74">&#34;Yes&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> puts(<span style="color:#e6db74">&#34;No&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="字符串哈希">
+  字符串哈希
+  <a class="anchor" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%93%88%e5%b8%8c">#</a>
+</h3>
+<p>将字符串转换为一串数字然后计算哈希值存入哈希表，如<code>abcde</code>中每个字母对应的ASCII码中的编号按顺序为<code>1 2 3 4 5</code>（计算方法为<code>'a' - 'a' + 1</code>，<code>'b' - 'a' + 1</code>，<code>'c' - 'a' + 1</code>等）那么可以将这段数字转换为<code>P</code>进制数，这样就可以区分不同字符串对应的哈希值。但是如果字符串位数比较多，会出现哈希值溢出的情况，那么就需要取模<code>Q</code>运算！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//一般情况下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>P <span style="color:#f92672">=</span> <span style="color:#ae81ff">131</span>;<span style="color:#75715e">//P = 131;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Q <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">64</span>;
+</span></span></code></pre></div><p>也可以利用这个算法实现前缀哈希，即某个字符串前<code>i</code>位的哈希值。然后我们就可以通过这个数组计算某个子串的哈希值。</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+  <div><a class="flex align-center" href="https://github.com/ivylet/book-shelf/commit/b6b6dfbd3917c8b09f67895d47abf80e611e913a" title='最后修改者 saytaytay | April 21, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>April 21, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter02/acwing/base/datestruct.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>编辑本页</span>
+    </a>
+  </div>
+
+<footer id="footer">
+  <div class="container">
+      &copy; 2023, By ivylet</a>。
+      
+  </div>
+</footer>
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#链表">链表</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#栈和队列">栈和队列</a>
+          <ul>
+            <li><a href="#模拟栈">模拟栈</a></li>
+            <li><a href="#模拟队列">模拟队列</a></li>
+          </ul>
+        </li>
+        <li><a href="#单调栈与单调队列">单调栈与单调队列</a>
+          <ul>
+            <li><a href="#单调栈">单调栈</a></li>
+            <li><a href="#单调队列">单调队列</a></li>
+          </ul>
+        </li>
+        <li><a href="#kmp">KMP</a></li>
+        <li><a href="#trie树字典树">Trie树(字典树)</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#并查集">并查集</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#哈希表">哈希表</a>
+          <ul>
+            <li><a href="#哈希表存储结构">哈希表存储结构</a></li>
+            <li><a href="#字符串哈希">字符串哈希</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

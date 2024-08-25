@@ -1,68 +1,873 @@
-<!doctype html><html lang=zh dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="时间复杂度 # 对数 ： 每轮排除一半情况 常用于二分法 指数：每轮分别出两倍情况 线性对数：一般为两层循环相互独立，一层为n一层为对数 常常出现在快速排序 空间复杂度 # 位运算 # 位运算有（&、|、^、~、&#187;、&#171;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。
-符号 描述 运算规则 & 与 两个位都为1时，结果才为1 | 或 两个位都为0时，结果才为0 ^ 异或 两个位相同为0，相异为1 ~ 取反 0变1，1变0 &#171; 左移 各二进位全部左移若干位，高位丢弃，低位补0 &#187; 右移 各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同 按位与运算符（&） # 定义：参加运算的两个数据，按二进制位进行&#34;与&#34;运算。
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="时间复杂度#对数 ： 每轮排除一半情况 常用于二分法 指数：每轮分别出两倍情况 线性对数：一般为两层循环相互独立，一层为n一层为对数 常常出现在快速排序 空间复杂度#位运算#位运算有（&amp;、|、^、~、&raquo;、&laquo;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。
+符号 描述 运算规则 &amp; 与 两个位都为1时，结果才为1 | 或 两个位都为0时，结果才为0 ^ 异或 两个位相同为0，相异为1 ~ 取反 0变1，1变0 &laquo; 左移 各二进位全部左移若干位，高位丢弃，低位补0 &raquo; 右移 各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同 按位与运算符（&amp;）#定义：参加运算的两个数据，按二进制位进行&quot;与&quot;运算。
 运算规则：同时为1才为1，
-0&0=0 0&1=0 1&0=0 1&1=1 //两位同时为1，结果才为1，否则结果为0。 例如：5&7 即 0000 0101& 0000 0111 = 0000 0101，因此 5&7 的值为5。
+0&amp;0=0 0&amp;1=0 1&amp;0=0 1&amp;1=1 //两位同时为1，结果才为1，否则结果为0。 例如：5&amp;7 即 0000 0101&amp; 0000 0111 = 0000 0101，因此 5&amp;7 的值为5。
 注意：负数按补码形式参加按位与运算。
 与运算的用途：
-清零 如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。 取一个数的指定位 比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&Y=0000 1001）即可得到X的指定位。 判断奇偶 二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用if ((a & 1) == 0)代替if (a % 2 == 0)来判断a是不是偶数。 按位或运算符（|） # 定义：参加运算的两个对象，按二进制位进行&#34;或&#34;运算。"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="常用算法储备知识"><meta property="og:description" content="时间复杂度 # 对数 ： 每轮排除一半情况 常用于二分法 指数：每轮分别出两倍情况 线性对数：一般为两层循环相互独立，一层为n一层为对数 常常出现在快速排序 空间复杂度 # 位运算 # 位运算有（&、|、^、~、&#187;、&#171;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。
-符号 描述 运算规则 & 与 两个位都为1时，结果才为1 | 或 两个位都为0时，结果才为0 ^ 异或 两个位相同为0，相异为1 ~ 取反 0变1，1变0 &#171; 左移 各二进位全部左移若干位，高位丢弃，低位补0 &#187; 右移 各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同 按位与运算符（&） # 定义：参加运算的两个数据，按二进制位进行&#34;与&#34;运算。
+清零 如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。 取一个数的指定位 比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&amp;Y=0000 1001）即可得到X的指定位。 判断奇偶 二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用if ((a &amp; 1) == 0)代替if (a % 2 == 0)来判断a是不是偶数。 按位或运算符（|）#定义：参加运算的两个对象，按二进制位进行&quot;或&quot;运算。">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="常用算法储备知识" />
+<meta property="og:description" content="时间复杂度#对数 ： 每轮排除一半情况 常用于二分法 指数：每轮分别出两倍情况 线性对数：一般为两层循环相互独立，一层为n一层为对数 常常出现在快速排序 空间复杂度#位运算#位运算有（&amp;、|、^、~、&raquo;、&laquo;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。
+符号 描述 运算规则 &amp; 与 两个位都为1时，结果才为1 | 或 两个位都为0时，结果才为0 ^ 异或 两个位相同为0，相异为1 ~ 取反 0变1，1变0 &laquo; 左移 各二进位全部左移若干位，高位丢弃，低位补0 &raquo; 右移 各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同 按位与运算符（&amp;）#定义：参加运算的两个数据，按二进制位进行&quot;与&quot;运算。
 运算规则：同时为1才为1，
-0&0=0 0&1=0 1&0=0 1&1=1 //两位同时为1，结果才为1，否则结果为0。 例如：5&7 即 0000 0101& 0000 0111 = 0000 0101，因此 5&7 的值为5。
+0&amp;0=0 0&amp;1=0 1&amp;0=0 1&amp;1=1 //两位同时为1，结果才为1，否则结果为0。 例如：5&amp;7 即 0000 0101&amp; 0000 0111 = 0000 0101，因此 5&amp;7 的值为5。
 注意：负数按补码形式参加按位与运算。
 与运算的用途：
-清零 如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。 取一个数的指定位 比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&Y=0000 1001）即可得到X的指定位。 判断奇偶 二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用if ((a & 1) == 0)代替if (a % 2 == 0)来判断a是不是偶数。 按位或运算符（|） # 定义：参加运算的两个对象，按二进制位进行&#34;或&#34;运算。"><meta property="og:type" content="article"><meta property="og:url" content="http://ivylet.github.io/docs/chapter01/datastru/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2024-08-25T20:30:47+08:00"><title>常用算法储备知识 | QBook</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script>
-<script defer src=/zh.search.min.4eb7993ef63f5c2c50e865c42dbdf9b032a352d679f97f19b434aa9de80d3717.js integrity="sha256-TreZPvY/XCxQ6GXELb35sDKjUtZ5+X8ZtDSqnegNNxc=" crossorigin=anonymous></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>QBook</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=搜索 aria-label=搜索 maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></label><ul><li><a href=http://ivylet.github.io/en/>English</a></li></ul></li></ul><ul><li><input type=checkbox id=section-903d3e7635db560eef69c6ad03432b92 class=toggle checked>
-<label for=section-903d3e7635db560eef69c6ad03432b92 class="flex justify-between"><a role=button>第一章|基础知识储备</a></label><ul><li><a href=/docs/chapter01/cpp-stl-argo/>STL中常用算法</a></li><li><a href=/docs/chapter01/cpp/>STL中常用算法1</a></li><li><a href=/docs/chapter01/datastru/ class=active>常用算法储备知识</a></li><li><a href=/docs/chapter01/cpp-stl-intro/>C++ STL</a></li><li><a href=/docs/chapter01/argo-datastru/>算法竞赛常用STL</a></li></ul></li><li><input type=checkbox id=section-144f7b511d4fbbff231a670ff00b5f9e class=toggle>
-<label for=section-144f7b511d4fbbff231a670ff00b5f9e class="flex justify-between"><a role=button>第二章|基础算法</a></label><ul><li><input type=checkbox id=section-9db364c0dccf0502e8049e61bd8b0d86 class=toggle>
-<label for=section-9db364c0dccf0502e8049e61bd8b0d86 class="flex justify-between"><a role=button>Acwing</a></label><ul><li><input type=checkbox id=section-96943a9cc0137d53acdca869bdf27124 class=toggle>
-<label for=section-96943a9cc0137d53acdca869bdf27124 class="flex justify-between"><a role=button>Base</a></label><ul><li><a href=/docs/chapter02/acwing/base/base-1/>基础算法一</a></li><li><a href=/docs/chapter02/acwing/base/datestruct/>数据结构</a></li><li><a href=/docs/chapter02/acwing/base/search_and_graph/>搜索与图论</a></li><li><a href=/docs/chapter02/acwing/base/greedy/>贪心</a></li></ul></li><li><input type=checkbox id=section-88eae5c1d766baf874d32d1908707564 class=toggle>
-<label for=section-88eae5c1d766baf874d32d1908707564 class="flex justify-between"><a role=button>Dp</a></label><ul><li><a href=/docs/chapter02/acwing/DP/DP/>DP</a></li><li><a href=/docs/chapter02/acwing/DP/package/>背包问题</a></li></ul></li><li><input type=checkbox id=section-a50d07f316054aeee9419b25ddf950a0 class=toggle>
-<label for=section-a50d07f316054aeee9419b25ddf950a0 class="flex justify-between"><a role=button>Math</a></label><ul><li><a href=/docs/chapter02/acwing/math/others/>其他</a></li><li><a href=/docs/chapter02/acwing/math/shulun/>数论</a></li></ul></li></ul></li><li><a href=/docs/chapter02/commonSolution/>常用思想方法</a></li></ul></li><li><input type=checkbox id=section-fca257306a653a028d58c47b763ab4c5 class=toggle>
-<label for=section-fca257306a653a028d58c47b763ab4c5 class="flex justify-between"><a role=button>第三章|计算机基础知识</a></label><ul><li><input type=checkbox id=section-c6a658a9eab81ef20c403bdfcfbb322f class=toggle>
-<label for=section-c6a658a9eab81ef20c403bdfcfbb322f class="flex justify-between"><a role=button>数据结构</a></label><ul><li><a href=/docs/chapter03/DS/cpter08/>排序算法</a><ul></ul></li></ul></li><li><input type=checkbox id=section-40effe6a2504b41caa4ca2922e36dd2a class=toggle>
-<label for=section-40effe6a2504b41caa4ca2922e36dd2a class="flex justify-between"><a role=button>计算机组成原理</a></label><ul><li><a href=/docs/chapter03/CO/cpt02/>第二章|数据的表示与运算</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt03/>第三章|存储系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt04/>第四章|指令系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt05/>第五章|中央控制器</a><ul></ul></li></ul></li><li><input type=checkbox id=section-90808d88c5fb0a7411c304bba41a80d8 class=toggle>
-<label for=section-90808d88c5fb0a7411c304bba41a80d8 class="flex justify-between"><a role=button>操作系统</a></label><ul><li><span>第一章|计算机系统概述</span><ul></ul></li><li><span>第二章|进程与线程</span><ul></ul></li><li><span>第三章|内存管理</span><ul></ul></li><li><span>第四章|文佳管理</span><ul></ul></li><li><span>第五章|I/O管理</span><ul></ul></li></ul></li><li><input type=checkbox id=section-25823a2461316869125b231cfddbbdc4 class=toggle>
-<label for=section-25823a2461316869125b231cfddbbdc4 class="flex justify-between"><a role=button>机器学习</a></label><ul><li><a href=/docs/chapter03/machine-learning/tools/>常用工具</a></li><li><a href=/docs/chapter03/machine-learning/LinerRegression/>线性回归</a><ul></ul></li></ul></li></ul></li><li><input type=checkbox id=section-574b1a2b668b65d846660d1f8c5a4bfb class=toggle>
-<label for=section-574b1a2b668b65d846660d1f8c5a4bfb class="flex justify-between"><a role=button>记录和其他</a></label><ul><li><input type=checkbox id=section-c1536e74d6e5fb6bc2e23ae4a04a06df class=toggle>
-<label for=section-c1536e74d6e5fb6bc2e23ae4a04a06df class="flex justify-between"><a role=button>暂时没名字</a></label><ul><li><a href=/docs/notes/other/00001/>无意识？！</a></li></ul></li><li><input type=checkbox id=section-a3b6ca56f01a783b7e83028f9b977c5b class=toggle>
-<label for=section-a3b6ca56f01a783b7e83028f9b977c5b class="flex justify-between"><a role=button>小记</a></label><ul><li><a href=/docs/notes/thinknote/00001/>暂且第一记</a></li><li><a href=/docs/notes/thinknote/00002/>一些话</a></li><li><a href=/docs/notes/thinknote/00003/>生活</a></li><li><a href=/docs/notes/thinknote/00000/>原初号</a></li></ul></li><li><span>notes</span><ul><li><a href=/docs/notes/readingnotes/0001/>《大问题》阅读随笔</a></li><li><a href=/docs/notes/readingnotes/0002/>拉康</a></li></ul></li></ul></li></ul><ul><li><a href=https://github.com/ivylet target=_blank rel=noopener>Github</a></li><li><a href=https://leetcode.cn/ target=_blank rel=noopener>Leetcode</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>常用算法储备知识</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#时间复杂度>时间复杂度</a></li><li><a href=#空间复杂度>空间复杂度</a></li><li><a href=#位运算>位运算</a><ul><li><a href=#按位与运算符>按位与运算符（&）</a></li><li><a href=#按位或运算符>按位或运算符（|）</a></li><li><a href=#异或运算符>异或运算符（^）</a></li><li><a href=#取反运算符->取反运算符 (~)</a></li><li><a href=#左移运算符>左移运算符（&#171;）</a></li><li><a href=#右移运算符>右移运算符（&#187;）</a></li><li><a href=#复合赋值运算符>复合赋值运算符</a></li></ul></li></ul></li></ul></nav></aside></header><article class=markdown><h2 id=时间复杂度>时间复杂度
-<a class=anchor href=#%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6>#</a></h2><ul><li>对数 ： 每轮排除一半情况
-常用于二分法</li><li>指数：每轮分别出两倍情况</li><li>线性对数：一般为两层循环相互独立，一层为n一层为对数
-常常出现在快速排序</li></ul><h2 id=空间复杂度>空间复杂度
-<a class=anchor href=#%e7%a9%ba%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6>#</a></h2><h2 id=位运算>位运算
-<a class=anchor href=#%e4%bd%8d%e8%bf%90%e7%ae%97>#</a></h2><p>位运算有（&、|、^、~、&#187;、&#171;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。</p><table><thead><tr><th style=text-align:center>符号</th><th style=text-align:center>描述</th><th style=text-align:center>运算规则</th></tr></thead><tbody><tr><td style=text-align:center>&</td><td style=text-align:center>与</td><td style=text-align:center>两个位都为1时，结果才为1</td></tr><tr><td style=text-align:center>|</td><td style=text-align:center>或</td><td style=text-align:center>两个位都为0时，结果才为0</td></tr><tr><td style=text-align:center>^</td><td style=text-align:center>异或</td><td style=text-align:center>两个位相同为0，相异为1</td></tr><tr><td style=text-align:center>~</td><td style=text-align:center>取反</td><td style=text-align:center>0变1，1变0</td></tr><tr><td style=text-align:center>&#171;</td><td style=text-align:center>左移</td><td style=text-align:center>各二进位全部左移若干位，高位丢弃，低位补0</td></tr><tr><td style=text-align:center>&#187;</td><td style=text-align:center>右移</td><td style=text-align:center>各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同</td></tr></tbody></table><h3 id=按位与运算符>按位与运算符（&）
-<a class=anchor href=#%e6%8c%89%e4%bd%8d%e4%b8%8e%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p><strong>定义</strong>：参加运算的两个数据，按二进制位进行"与"运算。</p><p>运算规则：同时为1才为1，</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-txt data-lang=txt><span style=display:flex><span>0&amp;0=0  0&amp;1=0  1&amp;0=0  1&amp;1=1 //两位同时为1，结果才为1，否则结果为0。
-</span></span></code></pre></div><p>例如：5&7 即 0000 0101& 0000 0111 = 0000 0101，因此 5&7 的值为5。</p><p><strong>注意</strong>：负数按补码形式参加按位与运算。</p><p><strong>与运算的用途：</strong></p><ul><li>清零
-如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。</li><li>取一个数的指定位
-比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&Y=0000 1001）即可得到X的指定位。</li><li>判断奇偶
-二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用<code>if ((a & 1) == 0)</code>代替<code>if (a % 2 == 0)</code>来判断a是不是偶数。</li></ul><h3 id=按位或运算符>按位或运算符（|）
-<a class=anchor href=#%e6%8c%89%e4%bd%8d%e6%88%96%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p>定义：参加运算的两个对象，按二进制位进行"或"运算。</p><p>运算规则：有1就为1，</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-txt data-lang=txt><span style=display:flex><span>0|0=0  0|1=1  1|0=1  1|1=1 //参加运算的两个对象只要有一个为1，其值为1。
-</span></span></code></pre></div><p>例如：5|7即 0000 0101| 0000 0111 = 0000 0111，因此，5|7的值得7。　</p><p>注意：负数按补码形式参加按位或运算。</p><p><strong>或运算的用途</strong>：</p><ul><li>常用来对一个数据的某些位设置为1
-比如将数 X=1010 1001 的低4位设置为1，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位或运算（X|Y=1010 1001）即可得到。</li></ul><h3 id=异或运算符>异或运算符（^）
-<a class=anchor href=#%e5%bc%82%e6%88%96%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p>定义：参加运算的两个数据，按二进制位进行"异或"运算。</p><p>运算规则：不同为1，相同为0</p><pre tabindex=0><code>0^0=0  0^1=1  1^0=1  1^1=0 //参加运算的两个对象，如果两个相应位相同为0，相异为1。
-</code></pre><p>异或的几条性质:</p><ul><li>1、交换律</li><li>2、结合律 (a^b)^c == a^(b^c)</li><li>3、对于任何数x，都有 x^x=0，x^0=x</li><li>4、自反性: a^b^b=a^0=a;</li></ul><p><strong>异或运算的用途</strong>：</p><ul><li><p>翻转指定位
-比如将数 X=1010 1110 的低4位进行翻转，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行异或运算（X^Y=1010 0001）即可得到。</p></li><li><p>与0相异或值不变
-例如：1010 1110 ^ 0000 0000 = 1010 1110</p></li><li><p>交换两个数
-例：(不使用中间变量，但是只能只能交换整型)</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>Swap</span>(<span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>a, <span style=color:#66d9ef>int</span> <span style=color:#f92672>&amp;</span>b){
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (a <span style=color:#f92672>!=</span> b){
-</span></span><span style=display:flex><span>    a <span style=color:#f92672>^=</span> b;
-</span></span><span style=display:flex><span>    b <span style=color:#f92672>^=</span> a;
-</span></span><span style=display:flex><span>    a <span style=color:#f92672>^=</span> b;
-</span></span><span style=display:flex><span>  }
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></div></li></ul><h3 id=取反运算符->取反运算符 (~)
-<a class=anchor href=#%e5%8f%96%e5%8f%8d%e8%bf%90%e7%ae%97%e7%ac%a6->#</a></h3><p>定义：参加运算的一个数据，按二进制进行"取反"运算。</p><p>运算规则：　直接取反</p><pre tabindex=0><code>~1=0 ~0=1 //对一个二进制数按位取反，即将0变1，1变0。
-</code></pre><p><strong>异或运算的用途</strong>：</p><ul><li>使一个数的最低位为零
-使a的最低位为0，可以表示为：a & ~1。~1的值为 1111 1111 1111 1110，再按"与"运算，最低位一定为0。 因为" ~&ldquo;运算符的优先级比算术运算符、关系运算符、逻辑运算符和其他运算符都高。</li></ul><h3 id=左移运算符>左移运算符（&#171;）
-<a class=anchor href=#%e5%b7%a6%e7%a7%bb%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p>定义：将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）。</p><p>设 a=1010 1110，a = a&#171; 2 将a的二进制位左移2位、右补0，即得a=1011 1000。</p><p>若左移时舍弃的高位不包含1，则每左移一位，相当于该数乘以2。</p><h3 id=右移运算符>右移运算符（&#187;）
-<a class=anchor href=#%e5%8f%b3%e7%a7%bb%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p>定义：将一个数的各二进制位全部右移若干位，正数左补0，负数左补1，右边丢弃。</p><p>例如：a=a&#187;2 将a的二进制位右移2位，左补0 或者 左补1得看被移数是正还是负。</p><p>操作数每右移一位，相当于该数除以2。</p><h3 id=复合赋值运算符>复合赋值运算符
-<a class=anchor href=#%e5%a4%8d%e5%90%88%e8%b5%8b%e5%80%bc%e8%bf%90%e7%ae%97%e7%ac%a6>#</a></h3><p>位运算符与赋值运算符结合，组成新的复合赋值运算符，它们是：</p><pre tabindex=0><code>&amp;=        例：a&amp;=b    相当于     a=a&amp;b
+清零 如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。 取一个数的指定位 比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&amp;Y=0000 1001）即可得到X的指定位。 判断奇偶 二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用if ((a &amp; 1) == 0)代替if (a % 2 == 0)来判断a是不是偶数。 按位或运算符（|）#定义：参加运算的两个对象，按二进制位进行&quot;或&quot;运算。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ivylet.github.io/docs/chapter01/datastru/" /><meta property="article:section" content="docs" />
+
+<meta property="article:modified_time" content="2023-03-27T00:22:12+08:00" />
+
+<title>常用算法储备知识 | QBook</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css" integrity="sha256-SzX&#43;0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt&#43;5t7EDugY=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/zh.search.min.938dbb139c13517f4b5a1505599b05a036fd0c511277a38999242ec0cfbd05ad.js" integrity="sha256-k427E5wTUX9LWhUFWZsFoDb9DFESd6OJmSQuwM&#43;9Ba0=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>QBook</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="http://ivylet.github.io/en/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-903d3e7635db560eef69c6ad03432b92" class="toggle" checked />
+    <label for="section-903d3e7635db560eef69c6ad03432b92" class="flex justify-between">
+      <a role="button" class="">第一章|基本语法储备</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-argo/" class="">STL中常用算法</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/datastru/" class="active">常用算法储备知识</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-intro/" class="">C&#43;&#43; STL</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/argo-datastru/" class="">算法竞赛常用STL</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-144f7b511d4fbbff231a670ff00b5f9e" class="toggle"  />
+    <label for="section-144f7b511d4fbbff231a670ff00b5f9e" class="flex justify-between">
+      <a role="button" class="">第二章|基础算法</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9db364c0dccf0502e8049e61bd8b0d86" class="toggle"  />
+    <label for="section-9db364c0dccf0502e8049e61bd8b0d86" class="flex justify-between">
+      <a role="button" class="">Acwing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-96943a9cc0137d53acdca869bdf27124" class="toggle"  />
+    <label for="section-96943a9cc0137d53acdca869bdf27124" class="flex justify-between">
+      <a role="button" class="">Base</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/base-1/" class="">基础算法一</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/datestruct/" class="">数据结构</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/search_and_graph/" class="">搜索与图论</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/greedy/" class="">贪心</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-88eae5c1d766baf874d32d1908707564" class="toggle"  />
+    <label for="section-88eae5c1d766baf874d32d1908707564" class="flex justify-between">
+      <a role="button" class="">Dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/DP/" class="">DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/package/" class="">背包问题</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a50d07f316054aeee9419b25ddf950a0" class="toggle"  />
+    <label for="section-a50d07f316054aeee9419b25ddf950a0" class="flex justify-between">
+      <a role="button" class="">Math</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/others/" class="">其他</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/shulun/" class="">数论</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-fca257306a653a028d58c47b763ab4c5" class="toggle"  />
+    <label for="section-fca257306a653a028d58c47b763ab4c5" class="flex justify-between">
+      <a role="button" class="">408|内容</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c6a658a9eab81ef20c403bdfcfbb322f" class="toggle"  />
+    <label for="section-c6a658a9eab81ef20c403bdfcfbb322f" class="flex justify-between">
+      <a role="button" class="">数据结构</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/DS/cpter08/" class="">排序算法</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-40effe6a2504b41caa4ca2922e36dd2a" class="toggle"  />
+    <label for="section-40effe6a2504b41caa4ca2922e36dd2a" class="flex justify-between">
+      <a role="button" class="">计算机组成原理</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/CO/cpt02/" class="">第二章|数据的表示与运算</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-25823a2461316869125b231cfddbbdc4" class="toggle"  />
+    <label for="section-25823a2461316869125b231cfddbbdc4" class="flex justify-between">
+      <a role="button" class="">机器学习</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/tools/" class="">常用工具</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/LinerRegression/" class="">线性回归</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f9b7daea96f44f74565c58211968d9f8" class="toggle"  />
+    <label for="section-f9b7daea96f44f74565c58211968d9f8" class="flex justify-between">
+      <a href="/docs/chapter05/" class="">其他</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/" class="">寻找数组的中心索引</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="">搜索插入位置</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/part1/" class="">第一章</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/ivylet"  target="_blank" rel="noopener">
+        Github
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://leetcode.cn/"  target="_blank" rel="noopener">
+        Leetcode
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://themes.gohugo.io/hugo-book/"  target="_blank" rel="noopener">
+        Hugo Themes
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>常用算法储备知识</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#时间复杂度">时间复杂度</a></li>
+        <li><a href="#空间复杂度">空间复杂度</a></li>
+        <li><a href="#位运算">位运算</a>
+          <ul>
+            <li><a href="#按位与运算符">按位与运算符（&amp;）</a></li>
+            <li><a href="#按位或运算符">按位或运算符（|）</a></li>
+            <li><a href="#异或运算符">异或运算符（^）</a></li>
+            <li><a href="#取反运算符-">取反运算符 (~)</a></li>
+            <li><a href="#左移运算符">左移运算符（&laquo;）</a></li>
+            <li><a href="#右移运算符">右移运算符（&raquo;）</a></li>
+            <li><a href="#复合赋值运算符">复合赋值运算符</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="时间复杂度">
+  时间复杂度
+  <a class="anchor" href="#%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6">#</a>
+</h2>
+<ul>
+<li>对数 ： 每轮排除一半情况
+常用于二分法</li>
+<li>指数：每轮分别出两倍情况</li>
+<li>线性对数：一般为两层循环相互独立，一层为n一层为对数
+常常出现在快速排序</li>
+</ul>
+<h2 id="空间复杂度">
+  空间复杂度
+  <a class="anchor" href="#%e7%a9%ba%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6">#</a>
+</h2>
+<h2 id="位运算">
+  位运算
+  <a class="anchor" href="#%e4%bd%8d%e8%bf%90%e7%ae%97">#</a>
+</h2>
+<p>位运算有（&amp;、|、^、~、&raquo;、&laquo;）这几种方法，以下为正且位数相同的二进制数进行的位运算，但是还会有其他特殊情况，比如二进制数非正，位数不同的情况。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">运算规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:center">与</td>
+<td style="text-align:center">两个位都为1时，结果才为1</td>
+</tr>
+<tr>
+<td style="text-align:center">|</td>
+<td style="text-align:center">或</td>
+<td style="text-align:center">两个位都为0时，结果才为0</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">异或</td>
+<td style="text-align:center">两个位相同为0，相异为1</td>
+</tr>
+<tr>
+<td style="text-align:center">~</td>
+<td style="text-align:center">取反</td>
+<td style="text-align:center">0变1，1变0</td>
+</tr>
+<tr>
+<td style="text-align:center">&laquo;</td>
+<td style="text-align:center">左移</td>
+<td style="text-align:center">各二进位全部左移若干位，高位丢弃，低位补0</td>
+</tr>
+<tr>
+<td style="text-align:center">&raquo;</td>
+<td style="text-align:center">右移</td>
+<td style="text-align:center">各二进位全部右移若干位，对无符号数，高位补0，有符号数，各编译器处理方法不同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="按位与运算符">
+  按位与运算符（&amp;）
+  <a class="anchor" href="#%e6%8c%89%e4%bd%8d%e4%b8%8e%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p><strong>定义</strong>：参加运算的两个数据，按二进制位进行&quot;与&quot;运算。</p>
+<p>运算规则：同时为1才为1，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0&amp;0=0  0&amp;1=0  1&amp;0=0  1&amp;1=1 //两位同时为1，结果才为1，否则结果为0。
+</span></span></code></pre></div><p>例如：5&amp;7 即 0000 0101&amp; 0000 0111 = 0000 0101，因此 5&amp;7 的值为5。</p>
+<p><strong>注意</strong>：负数按补码形式参加按位与运算。</p>
+<p><strong>与运算的用途：</strong></p>
+<ul>
+<li>清零
+如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。</li>
+<li>取一个数的指定位
+比如取数 X=1011 1001 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位与运算（X&amp;Y=0000 1001）即可得到X的指定位。</li>
+<li>判断奇偶
+二进制的奇偶数只需要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用<code>if ((a &amp; 1) == 0)</code>代替<code>if (a % 2 == 0)</code>来判断a是不是偶数。</li>
+</ul>
+<h3 id="按位或运算符">
+  按位或运算符（|）
+  <a class="anchor" href="#%e6%8c%89%e4%bd%8d%e6%88%96%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p>定义：参加运算的两个对象，按二进制位进行&quot;或&quot;运算。</p>
+<p>运算规则：有1就为1，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0|0=0  0|1=1  1|0=1  1|1=1 //参加运算的两个对象只要有一个为1，其值为1。
+</span></span></code></pre></div><p>例如：5|7即 0000 0101| 0000 0111 = 0000 0111，因此，5|7的值得7。　</p>
+<p>注意：负数按补码形式参加按位或运算。</p>
+<p><strong>或运算的用途</strong>：</p>
+<ul>
+<li>常用来对一个数据的某些位设置为1
+比如将数 X=1010 1001 的低4位设置为1，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行按位或运算（X|Y=1010 1001）即可得到。</li>
+</ul>
+<h3 id="异或运算符">
+  异或运算符（^）
+  <a class="anchor" href="#%e5%bc%82%e6%88%96%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p>定义：参加运算的两个数据，按二进制位进行&quot;异或&quot;运算。</p>
+<p>运算规则：不同为1，相同为0</p>
+<pre tabindex="0"><code>0^0=0  0^1=1  1^0=1  1^1=0 //参加运算的两个对象，如果两个相应位相同为0，相异为1。
+</code></pre><p>异或的几条性质:</p>
+<ul>
+<li>1、交换律</li>
+<li>2、结合律 (a^b)^c == a^(b^c)</li>
+<li>3、对于任何数x，都有 x^x=0，x^0=x</li>
+<li>4、自反性: a^b^b=a^0=a;</li>
+</ul>
+<p><strong>异或运算的用途</strong>：</p>
+<ul>
+<li>
+<p>翻转指定位
+比如将数 X=1010 1110 的低4位进行翻转，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，然后将X与Y进行异或运算（X^Y=1010 0001）即可得到。</p>
+</li>
+<li>
+<p>与0相异或值不变
+例如：1010 1110 ^ 0000 0000 = 1010 1110</p>
+</li>
+<li>
+<p>交换两个数
+例：(不使用中间变量，但是只能只能交换整型)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Swap</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>a, <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>b){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">!=</span> b){
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">^=</span> b;
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">^=</span> a;
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">^=</span> b;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="取反运算符-">
+  取反运算符 (~)
+  <a class="anchor" href="#%e5%8f%96%e5%8f%8d%e8%bf%90%e7%ae%97%e7%ac%a6-">#</a>
+</h3>
+<p>定义：参加运算的一个数据，按二进制进行&quot;取反&quot;运算。</p>
+<p>运算规则：　直接取反</p>
+<pre tabindex="0"><code>~1=0 ~0=1 //对一个二进制数按位取反，即将0变1，1变0。
+</code></pre><p><strong>异或运算的用途</strong>：</p>
+<ul>
+<li>使一个数的最低位为零
+使a的最低位为0，可以表示为：a &amp; ~1。~1的值为 1111 1111 1111 1110，再按&quot;与&quot;运算，最低位一定为0。            因为&quot; ~&ldquo;运算符的优先级比算术运算符、关系运算符、逻辑运算符和其他运算符都高。</li>
+</ul>
+<h3 id="左移运算符">
+  左移运算符（&laquo;）
+  <a class="anchor" href="#%e5%b7%a6%e7%a7%bb%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p>定义：将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）。</p>
+<p>设 a=1010 1110，a = a&laquo; 2 将a的二进制位左移2位、右补0，即得a=1011 1000。</p>
+<p>若左移时舍弃的高位不包含1，则每左移一位，相当于该数乘以2。</p>
+<h3 id="右移运算符">
+  右移运算符（&raquo;）
+  <a class="anchor" href="#%e5%8f%b3%e7%a7%bb%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p>定义：将一个数的各二进制位全部右移若干位，正数左补0，负数左补1，右边丢弃。</p>
+<p>例如：a=a&raquo;2 将a的二进制位右移2位，左补0 或者 左补1得看被移数是正还是负。</p>
+<p>操作数每右移一位，相当于该数除以2。</p>
+<h3 id="复合赋值运算符">
+  复合赋值运算符
+  <a class="anchor" href="#%e5%a4%8d%e5%90%88%e8%b5%8b%e5%80%bc%e8%bf%90%e7%ae%97%e7%ac%a6">#</a>
+</h3>
+<p>位运算符与赋值运算符结合，组成新的复合赋值运算符，它们是：</p>
+<pre tabindex="0"><code>&amp;=        例：a&amp;=b    相当于     a=a&amp;b
 
 |=        例：a|=b    相当于     a=a|b
 
@@ -71,6 +876,111 @@ Chinese</a></label><ul><li><a href=http://ivylet.github.io/en/>English</a></li><
 &lt;&lt;=      例：a&lt;&lt;=b     相当于      a=a&lt;&lt;b
 
 ^=        例：a^=b    相当于   a=a^b
-</code></pre><p>运算规则：和前面讲的复合赋值运算符的运算规则相似。</p><p>不同长度的数据进行位运算：如果两个不同长度的数据进行位运算时，系统会将二者按右端对齐，然后进行位运算。</p><ul><li></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/commit/69a59e548abf11740ab5161c7afda829ee1d4128 title='最后修改者 saytaytay | August 25, 2024' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>August 25, 2024</span></a></div><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter01/datastru.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>编辑本页</span></a></div><footer id=footer><div class=container>&copy; 2024, By ivylet</a>。</div></footer></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#时间复杂度>时间复杂度</a></li><li><a href=#空间复杂度>空间复杂度</a></li><li><a href=#位运算>位运算</a><ul><li><a href=#按位与运算符>按位与运算符（&）</a></li><li><a href=#按位或运算符>按位或运算符（|）</a></li><li><a href=#异或运算符>异或运算符（^）</a></li><li><a href=#取反运算符->取反运算符 (~)</a></li><li><a href=#左移运算符>左移运算符（&#171;）</a></li><li><a href=#右移运算符>右移运算符（&#187;）</a></li><li><a href=#复合赋值运算符>复合赋值运算符</a></li></ul></li></ul></li></ul></nav></div></aside></main></body></html>
+</code></pre><p>运算规则：和前面讲的复合赋值运算符的运算规则相似。</p>
+<p>不同长度的数据进行位运算：如果两个不同长度的数据进行位运算时，系统会将二者按右端对齐，然后进行位运算。</p>
+<ul>
+<li></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+  <div><a class="flex align-center" href="https://github.com/ivylet/book-shelf/commit/d90bb921a84b4a96522979dc113eb0ea1cc1c1f7" title='最后修改者 saytaytay | March 27, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>March 27, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter01/datastru.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>编辑本页</span>
+    </a>
+  </div>
+
+<footer id="footer">
+  <div class="container">
+      &copy; 2023, By ivylet</a>。
+      
+  </div>
+</footer>
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#时间复杂度">时间复杂度</a></li>
+        <li><a href="#空间复杂度">空间复杂度</a></li>
+        <li><a href="#位运算">位运算</a>
+          <ul>
+            <li><a href="#按位与运算符">按位与运算符（&amp;）</a></li>
+            <li><a href="#按位或运算符">按位或运算符（|）</a></li>
+            <li><a href="#异或运算符">异或运算符（^）</a></li>
+            <li><a href="#取反运算符-">取反运算符 (~)</a></li>
+            <li><a href="#左移运算符">左移运算符（&laquo;）</a></li>
+            <li><a href="#右移运算符">右移运算符（&raquo;）</a></li>
+            <li><a href="#复合赋值运算符">复合赋值运算符</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

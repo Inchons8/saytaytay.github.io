@@ -1,129 +1,1134 @@
-<!doctype html><html lang=zh dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="移位运算 # 移位：通过改变各个数码位和小数点的相对位置，从而改变各数码位的位权。可用移位运算实现乘法、除法。 注意：由于原、反、补码位数有限，因此某些时候算数移位不能精确等效乘法、除法
-算数移位 # 原码 # 原码的算数移位 符号位保持不变，仅对数值位进行移位。 右移：高位补0，低位舍弃。 若舍弃的位=0，则相当于÷2；若舍弃的位≠0，则会丢失精度。 左移：低位补0，高位舍弃。 若舍弃的位=0，则相当于×2；若舍弃的位≠0，则会出现严重误差。
-反码 # 反码的算数移位 正数的反码与原码相同， 因此对正数反码的移位运算也和原码相同。
-右移：高位补0，低位舍弃。 左移：低位补0，高位舍弃。 负数的反码数值位与原 码相反，因此负数反码的移位运算规则如下， 右移：高位补1，低位舍弃。 左移：低位补1，高位舍弃。 补码 # 补码的算数移位 正数的补码与原码相同， 因此对正数补码的移位运算也和原码相同。
-右移：高位补0，低位舍弃。 左移：低位补0，高位舍弃。 负数补码的算数移位规则如下： 右移（同反码）：高位补1，低位舍弃。 左移（同原码）：低位补0，高位舍弃。 总结 # 逻辑移位 # 逻辑右移：高位补0，低位舍弃。 逻辑左移：低位补0，高位舍弃。 可以把逻辑移位看作是对“无符号数”的算数移位。
-循环移位 # 分为两种情况： 不带进位位：用移出的位补充到添补位。 带进位位：移出的位放到进位位，原进位位放到添补位。
-运算器 # ACC： 累加器，用于存放操作数，或运算结果。 MQ： 乘商寄存器，在乘、除运算时，用于存放操作数或运算结果。 X： 通用的操作数寄存器，用于存放操作数 ALU：算术逻辑单元，通过内部复杂的电路实现算数运算、逻辑运算
-加 减 乘 除 ACC 被加数、和 被减数、差 乘积高位 被除数、余数 MQ 乘积、乘积低位 商 X 加 减 被乘数 除数 定点数的表示 # 定点数的运算 # 定点数的小数点一般是固定的。"><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="第二章|数据的表示与运算"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="http://ivylet.github.io/docs/chapter03/CO/cpt02/"><title>第二章|数据的表示与运算 | QBook</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css integrity="sha256-SzX+0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt+5t7EDugY=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script>
-<script defer src=/zh.search.min.4eb7993ef63f5c2c50e865c42dbdf9b032a352d679f97f19b434aa9de80d3717.js integrity="sha256-TreZPvY/XCxQ6GXELb35sDKjUtZ5+X8ZtDSqnegNNxc=" crossorigin=anonymous></script>
-<script defer src=/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js integrity="sha256-b2+Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC+NdcPIvZhzk=" crossorigin=anonymous></script>
-<link rel=alternate type=application/rss+xml href=http://ivylet.github.io/docs/chapter03/CO/cpt02/index.xml title=QBook></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>QBook</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=搜索 aria-label=搜索 maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul class=book-languages><li><input type=checkbox id=languages class=toggle>
-<label for=languages class="flex justify-between"><a role=button class="flex align-center"><img src=/svg/translate.svg class=book-icon alt=Languages>
-Chinese</a></label><ul><li><a href=http://ivylet.github.io/en/>English</a></li></ul></li></ul><ul><li><input type=checkbox id=section-903d3e7635db560eef69c6ad03432b92 class=toggle>
-<label for=section-903d3e7635db560eef69c6ad03432b92 class="flex justify-between"><a role=button>第一章|基础知识储备</a></label><ul><li><a href=/docs/chapter01/cpp-stl-argo/>STL中常用算法</a></li><li><a href=/docs/chapter01/cpp/>STL中常用算法1</a></li><li><a href=/docs/chapter01/datastru/>常用算法储备知识</a></li><li><a href=/docs/chapter01/cpp-stl-intro/>C++ STL</a></li><li><a href=/docs/chapter01/argo-datastru/>算法竞赛常用STL</a></li></ul></li><li><input type=checkbox id=section-144f7b511d4fbbff231a670ff00b5f9e class=toggle>
-<label for=section-144f7b511d4fbbff231a670ff00b5f9e class="flex justify-between"><a role=button>第二章|基础算法</a></label><ul><li><input type=checkbox id=section-9db364c0dccf0502e8049e61bd8b0d86 class=toggle>
-<label for=section-9db364c0dccf0502e8049e61bd8b0d86 class="flex justify-between"><a role=button>Acwing</a></label><ul><li><input type=checkbox id=section-96943a9cc0137d53acdca869bdf27124 class=toggle>
-<label for=section-96943a9cc0137d53acdca869bdf27124 class="flex justify-between"><a role=button>Base</a></label><ul><li><a href=/docs/chapter02/acwing/base/base-1/>基础算法一</a></li><li><a href=/docs/chapter02/acwing/base/datestruct/>数据结构</a></li><li><a href=/docs/chapter02/acwing/base/search_and_graph/>搜索与图论</a></li><li><a href=/docs/chapter02/acwing/base/greedy/>贪心</a></li></ul></li><li><input type=checkbox id=section-88eae5c1d766baf874d32d1908707564 class=toggle>
-<label for=section-88eae5c1d766baf874d32d1908707564 class="flex justify-between"><a role=button>Dp</a></label><ul><li><a href=/docs/chapter02/acwing/DP/DP/>DP</a></li><li><a href=/docs/chapter02/acwing/DP/package/>背包问题</a></li></ul></li><li><input type=checkbox id=section-a50d07f316054aeee9419b25ddf950a0 class=toggle>
-<label for=section-a50d07f316054aeee9419b25ddf950a0 class="flex justify-between"><a role=button>Math</a></label><ul><li><a href=/docs/chapter02/acwing/math/others/>其他</a></li><li><a href=/docs/chapter02/acwing/math/shulun/>数论</a></li></ul></li></ul></li><li><a href=/docs/chapter02/commonSolution/>常用思想方法</a></li></ul></li><li><input type=checkbox id=section-fca257306a653a028d58c47b763ab4c5 class=toggle checked>
-<label for=section-fca257306a653a028d58c47b763ab4c5 class="flex justify-between"><a role=button>第三章|计算机基础知识</a></label><ul><li><input type=checkbox id=section-c6a658a9eab81ef20c403bdfcfbb322f class=toggle>
-<label for=section-c6a658a9eab81ef20c403bdfcfbb322f class="flex justify-between"><a role=button>数据结构</a></label><ul><li><a href=/docs/chapter03/DS/cpter08/>排序算法</a><ul></ul></li></ul></li><li><input type=checkbox id=section-40effe6a2504b41caa4ca2922e36dd2a class=toggle checked>
-<label for=section-40effe6a2504b41caa4ca2922e36dd2a class="flex justify-between"><a role=button>计算机组成原理</a></label><ul><li><a href=/docs/chapter03/CO/cpt02/ class=active>第二章|数据的表示与运算</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt03/>第三章|存储系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt04/>第四章|指令系统</a><ul></ul></li><li><a href=/docs/chapter03/CO/cpt05/>第五章|中央控制器</a><ul></ul></li></ul></li><li><input type=checkbox id=section-90808d88c5fb0a7411c304bba41a80d8 class=toggle>
-<label for=section-90808d88c5fb0a7411c304bba41a80d8 class="flex justify-between"><a role=button>操作系统</a></label><ul><li><span>第一章|计算机系统概述</span><ul></ul></li><li><span>第二章|进程与线程</span><ul></ul></li><li><span>第三章|内存管理</span><ul></ul></li><li><span>第四章|文佳管理</span><ul></ul></li><li><span>第五章|I/O管理</span><ul></ul></li></ul></li><li><input type=checkbox id=section-25823a2461316869125b231cfddbbdc4 class=toggle>
-<label for=section-25823a2461316869125b231cfddbbdc4 class="flex justify-between"><a role=button>机器学习</a></label><ul><li><a href=/docs/chapter03/machine-learning/tools/>常用工具</a></li><li><a href=/docs/chapter03/machine-learning/LinerRegression/>线性回归</a><ul></ul></li></ul></li></ul></li><li><input type=checkbox id=section-574b1a2b668b65d846660d1f8c5a4bfb class=toggle>
-<label for=section-574b1a2b668b65d846660d1f8c5a4bfb class="flex justify-between"><a role=button>记录和其他</a></label><ul><li><input type=checkbox id=section-c1536e74d6e5fb6bc2e23ae4a04a06df class=toggle>
-<label for=section-c1536e74d6e5fb6bc2e23ae4a04a06df class="flex justify-between"><a role=button>暂时没名字</a></label><ul><li><a href=/docs/notes/other/00001/>无意识？！</a></li></ul></li><li><input type=checkbox id=section-a3b6ca56f01a783b7e83028f9b977c5b class=toggle>
-<label for=section-a3b6ca56f01a783b7e83028f9b977c5b class="flex justify-between"><a role=button>小记</a></label><ul><li><a href=/docs/notes/thinknote/00001/>暂且第一记</a></li><li><a href=/docs/notes/thinknote/00002/>一些话</a></li><li><a href=/docs/notes/thinknote/00003/>生活</a></li><li><a href=/docs/notes/thinknote/00000/>原初号</a></li></ul></li><li><span>notes</span><ul><li><a href=/docs/notes/readingnotes/0001/>《大问题》阅读随笔</a></li><li><a href=/docs/notes/readingnotes/0002/>拉康</a></li></ul></li></ul></li></ul><ul><li><a href=https://github.com/ivylet target=_blank rel=noopener>Github</a></li><li><a href=https://leetcode.cn/ target=_blank rel=noopener>Leetcode</a></li><li><a href=https://themes.gohugo.io/hugo-book/ target=_blank rel=noopener>Hugo Themes</a></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>第二章|数据的表示与运算</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><ul><li><a href=#移位运算>移位运算</a><ul><li><a href=#算数移位>算数移位</a></li><li><a href=#逻辑移位>逻辑移位</a></li><li><a href=#循环移位>循环移位</a></li></ul></li><li><a href=#运算器>运算器</a></li><li><a href=#定点数的表示>定点数的表示</a></li><li><a href=#定点数的运算>定点数的运算</a><ul><li><a href=#原码的除法>原码的除法</a></li><li><a href=#补码的除法>补码的除法</a></li><li><a href=#除法总结>除法总结</a></li></ul></li><li><a href=#数据的存储与排列>数据的存储与排列</a><ul><li><a href=#大小端模式>大小端模式</a></li><li><a href=#边界对齐>边界对齐</a></li></ul></li><li><a href=#浮点数的表示>浮点数的表示</a><ul><li><a href=#浮点数规格>浮点数规格</a></li><li><a href=#ieee754表示>IEEE754表示</a></li></ul></li><li><a href=#浮点数的加减运算>浮点数的加减运算</a></li></ul></li></ul></nav></aside></header><article class=markdown><h2 id=移位运算>移位运算
-<a class=anchor href=#%e7%a7%bb%e4%bd%8d%e8%bf%90%e7%ae%97>#</a></h2><p>移位：通过改变各个数码位和小数点的相对位置，从而改变各数码位的位权。可用移位运算实现乘法、除法。
-注意：由于原、反、补码位数有限，因此某些时候算数移位不能精确等效乘法、除法</p><h3 id=算数移位>算数移位
-<a class=anchor href=#%e7%ae%97%e6%95%b0%e7%a7%bb%e4%bd%8d>#</a></h3><h4 id=原码>原码
-<a class=anchor href=#%e5%8e%9f%e7%a0%81>#</a></h4><p>原码的算数移位
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="移位运算#移位：通过改变各个数码位和小数点的相对位置，从而改变各数码位的位权。可用移位运算实现乘法、除法。 注意：由于原、反、补码位数有限，因此某些时候算数移位不能精确等效乘法、除法
+算数移位#原码#原码的算数移位 符号位保持不变，仅对数值位进行移位。 右移：高位补0，低位舍弃。 若舍弃的位=0，则相当于÷2；若舍弃的位≠0，则会丢失精度。 左移：低位补0，高位舍弃。 若舍弃的位=0，则相当于×2；若舍弃的位≠0，则会出现严重误差。
+反码#反码的算数移位 正数的反码与原码相同， 因此对正数反码的移位运算也和原码相同。
+右移：高位补0，低位舍弃。 左移：低位补0，高位舍弃。 负数的反码数值位与原 码相反，因此负数反码的移位运算规则如下， 右移：高位补1，低位舍弃。 左移：低位补1，高位舍弃。 补码#补码的算数移位 正数的补码与原码相同， 因此对正数补码的移位运算也和原码相同。
+右移：高位补0，低位舍弃。 左移：低位补0，高位舍弃。 负数补码的算数移位规则如下： 右移（同反码）：高位补1，低位舍弃。 左移（同原码）：低位补0，高位舍弃。 总结#逻辑移位#逻辑右移：高位补0，低位舍弃。 逻辑左移：低位补0，高位舍弃。 可以把逻辑移位看作是对“无符号数”的算数移位。
+循环移位#分为两种情况： 不带进位位：用移出的位补充到添补位。 带进位位：移出的位放到进位位，原进位位放到添补位。
+运算器#ACC： 累加器，用于存放操作数，或运算结果。 MQ： 乘商寄存器，在乘、除运算时，用于存放操作数或运算结果。 X： 通用的操作数寄存器，用于存放操作数 ALU：算术逻辑单元，通过内部复杂的电路实现算数运算、逻辑运算
+加 减 乘 除 ACC 被加数、和 被减数、差 乘积高位 被除数、余数 MQ 乘积、乘积低位 商 X 加 减 被乘数 除数 定点数的表示#定点数的运算#定点数的小数点一般是固定的。">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="第二章|数据的表示与运算" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://ivylet.github.io/docs/chapter03/CO/cpt02/" />
+
+<title>第二章|数据的表示与运算 | QBook</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.4b35fed0bea034bbc19c89c71e14b73fb9c68cfcc586b9382adfb9b7b103ba06.css" integrity="sha256-SzX&#43;0L6gNLvBnInHHhS3P7nGjPzFhrk4Kt&#43;5t7EDugY=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/zh.search.min.938dbb139c13517f4b5a1505599b05a036fd0c511277a38999242ec0cfbd05ad.js" integrity="sha256-k427E5wTUX9LWhUFWZsFoDb9DFESd6OJmSQuwM&#43;9Ba0=" crossorigin="anonymous"></script>
+
+  <script defer src="/sw.min.6f6f90fcb8eb1c49ec389838e6b801d0de19430b8e516902f8d75c3c8bd98739.js" integrity="sha256-b2&#43;Q/LjrHEnsOJg45rgB0N4ZQwuOUWkC&#43;NdcPIvZhzk=" crossorigin="anonymous"></script>
+<link rel="alternate" type="application/rss+xml" href="http://ivylet.github.io/docs/chapter03/CO/cpt02/index.xml" title="QBook" />
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>QBook</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="搜索" aria-label="搜索" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+  
+
+
+
+  
+    
+  
+
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex justify-between">
+      <a role="button" class="flex align-center">
+        <img src="/svg/translate.svg" class="book-icon" alt="Languages" />
+        Chinese
+      </a>
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="http://ivylet.github.io/en/">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-903d3e7635db560eef69c6ad03432b92" class="toggle"  />
+    <label for="section-903d3e7635db560eef69c6ad03432b92" class="flex justify-between">
+      <a role="button" class="">第一章|基本语法储备</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-argo/" class="">STL中常用算法</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/datastru/" class="">常用算法储备知识</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/cpp-stl-intro/" class="">C&#43;&#43; STL</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter01/argo-datastru/" class="">算法竞赛常用STL</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-144f7b511d4fbbff231a670ff00b5f9e" class="toggle"  />
+    <label for="section-144f7b511d4fbbff231a670ff00b5f9e" class="flex justify-between">
+      <a role="button" class="">第二章|基础算法</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9db364c0dccf0502e8049e61bd8b0d86" class="toggle"  />
+    <label for="section-9db364c0dccf0502e8049e61bd8b0d86" class="flex justify-between">
+      <a role="button" class="">Acwing</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-96943a9cc0137d53acdca869bdf27124" class="toggle"  />
+    <label for="section-96943a9cc0137d53acdca869bdf27124" class="flex justify-between">
+      <a role="button" class="">Base</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/base-1/" class="">基础算法一</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/datestruct/" class="">数据结构</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/search_and_graph/" class="">搜索与图论</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/base/greedy/" class="">贪心</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-88eae5c1d766baf874d32d1908707564" class="toggle"  />
+    <label for="section-88eae5c1d766baf874d32d1908707564" class="flex justify-between">
+      <a role="button" class="">Dp</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/DP/" class="">DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/DP/package/" class="">背包问题</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a50d07f316054aeee9419b25ddf950a0" class="toggle"  />
+    <label for="section-a50d07f316054aeee9419b25ddf950a0" class="flex justify-between">
+      <a role="button" class="">Math</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/others/" class="">其他</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter02/acwing/math/shulun/" class="">数论</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-fca257306a653a028d58c47b763ab4c5" class="toggle" checked />
+    <label for="section-fca257306a653a028d58c47b763ab4c5" class="flex justify-between">
+      <a role="button" class="">408|内容</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c6a658a9eab81ef20c403bdfcfbb322f" class="toggle"  />
+    <label for="section-c6a658a9eab81ef20c403bdfcfbb322f" class="flex justify-between">
+      <a role="button" class="">数据结构</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/DS/cpter08/" class="">排序算法</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-40effe6a2504b41caa4ca2922e36dd2a" class="toggle" checked />
+    <label for="section-40effe6a2504b41caa4ca2922e36dd2a" class="flex justify-between">
+      <a role="button" class="">计算机组成原理</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/CO/cpt02/" class="active">第二章|数据的表示与运算</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-25823a2461316869125b231cfddbbdc4" class="toggle"  />
+    <label for="section-25823a2461316869125b231cfddbbdc4" class="flex justify-between">
+      <a role="button" class="">机器学习</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/tools/" class="">常用工具</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter03/machine-learning/LinerRegression/" class="">线性回归</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f9b7daea96f44f74565c58211968d9f8" class="toggle"  />
+    <label for="section-f9b7daea96f44f74565c58211968d9f8" class="flex justify-between">
+      <a href="/docs/chapter05/" class="">其他</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/" class="">寻找数组的中心索引</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="">搜索插入位置</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/chapter05/part1/" class="">第一章</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/ivylet"  target="_blank" rel="noopener">
+        Github
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://leetcode.cn/"  target="_blank" rel="noopener">
+        Leetcode
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://themes.gohugo.io/hugo-book/"  target="_blank" rel="noopener">
+        Hugo Themes
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>第二章|数据的表示与运算</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#移位运算">移位运算</a>
+          <ul>
+            <li><a href="#算数移位">算数移位</a></li>
+            <li><a href="#逻辑移位">逻辑移位</a></li>
+            <li><a href="#循环移位">循环移位</a></li>
+          </ul>
+        </li>
+        <li><a href="#运算器">运算器</a></li>
+        <li><a href="#定点数的表示">定点数的表示</a></li>
+        <li><a href="#定点数的运算">定点数的运算</a>
+          <ul>
+            <li><a href="#原码的除法">原码的除法</a></li>
+            <li><a href="#补码的除法">补码的除法</a></li>
+            <li><a href="#除法总结">除法总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据的存储与排列">数据的存储与排列</a>
+          <ul>
+            <li><a href="#大小端模式">大小端模式</a></li>
+            <li><a href="#边界对齐">边界对齐</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点数的表示">浮点数的表示</a>
+          <ul>
+            <li><a href="#浮点数规格">浮点数规格</a></li>
+            <li><a href="#ieee754表示">IEEE754表示</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点数的运算">浮点数的运算</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h2 id="移位运算">
+  移位运算
+  <a class="anchor" href="#%e7%a7%bb%e4%bd%8d%e8%bf%90%e7%ae%97">#</a>
+</h2>
+<p>移位：通过改变各个数码位和小数点的相对位置，从而改变各数码位的位权。可用移位运算实现乘法、除法。
+注意：由于原、反、补码位数有限，因此某些时候算数移位不能精确等效乘法、除法</p>
+<h3 id="算数移位">
+  算数移位
+  <a class="anchor" href="#%e7%ae%97%e6%95%b0%e7%a7%bb%e4%bd%8d">#</a>
+</h3>
+<h4 id="原码">
+  原码
+  <a class="anchor" href="#%e5%8e%9f%e7%a0%81">#</a>
+</h4>
+<p>原码的算数移位
 符号位保持不变，仅对数值位进行移位。
 右移：高位补0，低位舍弃。
 若舍弃的位=0，则相当于÷2；若舍弃的位≠0，则会丢失精度。
 左移：低位补0，高位舍弃。
-若舍弃的位=0，则相当于×2；若舍弃的位≠0，则会出现严重误差。</p><h4 id=反码>反码
-<a class=anchor href=#%e5%8f%8d%e7%a0%81>#</a></h4><p>反码的算数移位
-正数的反码与原码相同， 因此对正数反码的移位运算也和原码相同。</p><ul><li>右移：高位补0，低位舍弃。</li><li>左移：低位补0，高位舍弃。
-负数的反码数值位与原 码相反，因此负数反码的移位运算规则如下，</li><li>右移：高位补1，低位舍弃。</li><li>左移：低位补1，高位舍弃。</li></ul><h4 id=补码>补码
-<a class=anchor href=#%e8%a1%a5%e7%a0%81>#</a></h4><p>补码的算数移位
-正数的补码与原码相同， 因此对正数补码的移位运算也和原码相同。</p><ul><li>右移：高位补0，低位舍弃。</li><li>左移：低位补0，高位舍弃。
-负数补码的算数移位规则如下：</li><li>右移（同反码）：高位补1，低位舍弃。</li><li>左移（同原码）：低位补0，高位舍弃。</li></ul><h4 id=总结>总结
-<a class=anchor href=#%e6%80%bb%e7%bb%93>#</a></h4><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052126017.png alt=image.png></p><h3 id=逻辑移位>逻辑移位
-<a class=anchor href=#%e9%80%bb%e8%be%91%e7%a7%bb%e4%bd%8d>#</a></h3><p>逻辑右移：高位补0，低位舍弃。 逻辑左移：低位补0，高位舍弃。
-可以把逻辑移位看作是对“无符号数”的算数移位。</p><h3 id=循环移位>循环移位
-<a class=anchor href=#%e5%be%aa%e7%8e%af%e7%a7%bb%e4%bd%8d>#</a></h3><p>分为两种情况：
+若舍弃的位=0，则相当于×2；若舍弃的位≠0，则会出现严重误差。</p>
+<h4 id="反码">
+  反码
+  <a class="anchor" href="#%e5%8f%8d%e7%a0%81">#</a>
+</h4>
+<p>反码的算数移位
+正数的反码与原码相同， 因此对正数反码的移位运算也和原码相同。</p>
+<ul>
+<li>右移：高位补0，低位舍弃。</li>
+<li>左移：低位补0，高位舍弃。
+负数的反码数值位与原 码相反，因此负数反码的移位运算规则如下，</li>
+<li>右移：高位补1，低位舍弃。</li>
+<li>左移：低位补1，高位舍弃。</li>
+</ul>
+<h4 id="补码">
+  补码
+  <a class="anchor" href="#%e8%a1%a5%e7%a0%81">#</a>
+</h4>
+<p>补码的算数移位
+正数的补码与原码相同， 因此对正数补码的移位运算也和原码相同。</p>
+<ul>
+<li>右移：高位补0，低位舍弃。</li>
+<li>左移：低位补0，高位舍弃。
+负数补码的算数移位规则如下：</li>
+<li>右移（同反码）：高位补1，低位舍弃。</li>
+<li>左移（同原码）：低位补0，高位舍弃。</li>
+</ul>
+<h4 id="总结">
+  总结
+  <a class="anchor" href="#%e6%80%bb%e7%bb%93">#</a>
+</h4>
+<p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052126017.png" alt="image.png" /></p>
+<h3 id="逻辑移位">
+  逻辑移位
+  <a class="anchor" href="#%e9%80%bb%e8%be%91%e7%a7%bb%e4%bd%8d">#</a>
+</h3>
+<p>逻辑右移：高位补0，低位舍弃。 逻辑左移：低位补0，高位舍弃。
+可以把逻辑移位看作是对“无符号数”的算数移位。</p>
+<h3 id="循环移位">
+  循环移位
+  <a class="anchor" href="#%e5%be%aa%e7%8e%af%e7%a7%bb%e4%bd%8d">#</a>
+</h3>
+<p>分为两种情况：
 不带进位位：用移出的位补充到添补位。
-带进位位：移出的位放到进位位，原进位位放到添补位。</p><h2 id=运算器>运算器
-<a class=anchor href=#%e8%bf%90%e7%ae%97%e5%99%a8>#</a></h2><p>ACC： 累加器，用于存放操作数，或运算结果。
+带进位位：移出的位放到进位位，原进位位放到添补位。</p>
+<h2 id="运算器">
+  运算器
+  <a class="anchor" href="#%e8%bf%90%e7%ae%97%e5%99%a8">#</a>
+</h2>
+<p>ACC： 累加器，用于存放操作数，或运算结果。
 MQ： 乘商寄存器，在乘、除运算时，用于存放操作数或运算结果。
 X： 通用的操作数寄存器，用于存放操作数
-ALU：算术逻辑单元，通过内部复杂的电路实现算数运算、逻辑运算</p><table><thead><tr><th></th><th>加</th><th>减</th><th>乘</th><th>除</th></tr></thead><tbody><tr><td>ACC</td><td>被加数、和</td><td>被减数、差</td><td>乘积高位</td><td>被除数、余数</td></tr><tr><td>MQ</td><td></td><td></td><td>乘积、乘积低位</td><td>商</td></tr><tr><td>X</td><td>加</td><td>减</td><td>被乘数</td><td>除数</td></tr></tbody></table><h2 id=定点数的表示>定点数的表示
-<a class=anchor href=#%e5%ae%9a%e7%82%b9%e6%95%b0%e7%9a%84%e8%a1%a8%e7%a4%ba>#</a></h2><h2 id=定点数的运算>定点数的运算
-<a class=anchor href=#%e5%ae%9a%e7%82%b9%e6%95%b0%e7%9a%84%e8%bf%90%e7%ae%97>#</a></h2><p>定点数的小数点一般是固定的。</p><h3 id=原码的除法>原码的除法
-<a class=anchor href=#%e5%8e%9f%e7%a0%81%e7%9a%84%e9%99%a4%e6%b3%95>#</a></h3><p>符号位单独处理，即对除数与被除数的符号位进行异或运算。</p><h4 id=恢复余数法>恢复余数法
-<a class=anchor href=#%e6%81%a2%e5%a4%8d%e4%bd%99%e6%95%b0%e6%b3%95>#</a></h4><p>数值位取绝对值进行除法运算，符号位单独处理（进行异或运算）。
-先默认商1，如果余数为负数即首位为1，则修正为商0。</p><h5 id=举例>举例
-<a class=anchor href=#%e4%b8%be%e4%be%8b>#</a></h5><p>设机器字长为5位（含1位符号位，n=4）
+ALU：算术逻辑单元，通过内部复杂的电路实现算数运算、逻辑运算</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>加</th>
+<th>减</th>
+<th>乘</th>
+<th>除</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACC</td>
+<td>被加数、和</td>
+<td>被减数、差</td>
+<td>乘积高位</td>
+<td>被除数、余数</td>
+</tr>
+<tr>
+<td>MQ</td>
+<td></td>
+<td></td>
+<td>乘积、乘积低位</td>
+<td>商</td>
+</tr>
+<tr>
+<td>X</td>
+<td>加</td>
+<td>减</td>
+<td>被乘数</td>
+<td>除数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="定点数的表示">
+  定点数的表示
+  <a class="anchor" href="#%e5%ae%9a%e7%82%b9%e6%95%b0%e7%9a%84%e8%a1%a8%e7%a4%ba">#</a>
+</h2>
+<h2 id="定点数的运算">
+  定点数的运算
+  <a class="anchor" href="#%e5%ae%9a%e7%82%b9%e6%95%b0%e7%9a%84%e8%bf%90%e7%ae%97">#</a>
+</h2>
+<p>定点数的小数点一般是固定的。</p>
+<h3 id="原码的除法">
+  原码的除法
+  <a class="anchor" href="#%e5%8e%9f%e7%a0%81%e7%9a%84%e9%99%a4%e6%b3%95">#</a>
+</h3>
+<p>符号位单独处理，即对除数与被除数的符号位进行异或运算。</p>
+<h4 id="恢复余数法">
+  恢复余数法
+  <a class="anchor" href="#%e6%81%a2%e5%a4%8d%e4%bd%99%e6%95%b0%e6%b3%95">#</a>
+</h4>
+<p>数值位取绝对值进行除法运算，符号位单独处理（进行异或运算）。
+先默认商1，如果余数为负数即首位为1，则修正为商0。</p>
+<h5 id="举例">
+  举例
+  <a class="anchor" href="#%e4%b8%be%e4%be%8b">#</a>
+</h5>
+<p>设机器字长为5位（含1位符号位，n=4）
 x=0.1011，y=0.1101，采用原码恢复余数法求x/y |x|=0.1011，|y|=0.1101，[|y|]<sub>补</sub>=0.1101，[−|y|]<sub>补</sub>=1.0011
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051540543.png alt=image.png>
-计算机很傻，会先默认上商1，如果 搞错了再改上商0。并“恢复余数”。</p><h6 id=整体流程>整体流程
-<a class=anchor href=#%e6%95%b4%e4%bd%93%e6%b5%81%e7%a8%8b>#</a></h6><ol><li>商先上1，即MQ的最后一位先赋为1</li><li>求余数：
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051540543.png" alt="image.png" />
+计算机很傻，会先默认上商1，如果 搞错了再改上商0。并“恢复余数”。</p>
+<h6 id="整体流程">
+  整体流程
+  <a class="anchor" href="#%e6%95%b4%e4%bd%93%e6%b5%81%e7%a8%8b">#</a>
+</h6>
+<ol>
+<li>商先上1，即MQ的最后一位先赋为1</li>
+<li>求余数：
 ACC中的内容 减去 除数即通用寄存器中的内容。
 ACC 的内容 传入ALU 然后加上除数相反数的补码，完成减法运算，再返回ACC
-ACC + [−|y|]<sub>补</sub> &ndash;> ACC</li><li>判断！
+ACC + [−|y|]<sub>补</sub> &ndash;&gt; ACC</li>
+<li>判断！
 若ACC的值为正数，则商1正确。
 若ACC的值为负数，即第一位为1，则判定应该商0而非商1。
 此时应该恢复余数，即ACC加上除数的补码，恢复余数。
-ACC + [|y|]<sub>补</sub> &ndash;> ACC</li><li>逻辑左移
+ACC + [|y|]<sub>补</sub> &ndash;&gt; ACC</li>
+<li>逻辑左移
 ACC与MQ中的数整体逻辑左移，
 ACC中的余数丢去最高位，末尾补0。
 MQ中的商左移，末尾补上新的待计算位。
-一般5位机器数中MQ5位，则最后的商就只有5位，ACC中最终余数5位。</li></ol><h6 id=手算模拟>手算模拟
-<a class=anchor href=#%e6%89%8b%e7%ae%97%e6%a8%a1%e6%8b%9f>#</a></h6><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051558910.png alt=image.png></p><h5 id=总结-1>总结
-<a class=anchor href=#%e6%80%bb%e7%bb%93-1>#</a></h5><p>左移动n位确定n位商</p><h4 id=加减交替法不恢复余数法>加减交替法（不恢复余数法）
-<a class=anchor href=#%e5%8a%a0%e5%87%8f%e4%ba%a4%e6%9b%bf%e6%b3%95%e4%b8%8d%e6%81%a2%e5%a4%8d%e4%bd%99%e6%95%b0%e6%b3%95>#</a></h4><p>前边同恢复余数法，就是在发现余数为负时，如何处理。
-恢复余数法的方法是先加上[|y|]<sub>补</sub>，然后左移，然后处理下一位时再加上[-|y|]<sub>补</sub>，然后商1，再判断余数正负。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>记a为当前需要恢复余数的余数（为负数，因为负数才需要恢复）
-</span></span><span style=display:flex><span>b为除数绝对值的补码。
-</span></span><span style=display:flex><span>则操作为 a、a + b、2(a+b)、2(a+b) - b = 2a + b
-</span></span></code></pre></div><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051628356.png alt=image.png></p><p>则以上操作可以直接简化为，发现余数为负，则直接先左移一位然后加上[|y|]<sub>补</sub>，可以达到同样的效果，还少了一步操作。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051632762.png alt=image.png>
+一般5位机器数中MQ5位，则最后的商就只有5位，ACC中最终余数5位。</li>
+</ol>
+<h6 id="手算模拟">
+  手算模拟
+  <a class="anchor" href="#%e6%89%8b%e7%ae%97%e6%a8%a1%e6%8b%9f">#</a>
+</h6>
+<p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051558910.png" alt="image.png" /></p>
+<h5 id="总结-1">
+  总结
+  <a class="anchor" href="#%e6%80%bb%e7%bb%93-1">#</a>
+</h5>
+<p>左移动n位确定n位商</p>
+<h4 id="加减交替法不恢复余数法">
+  加减交替法（不恢复余数法）
+  <a class="anchor" href="#%e5%8a%a0%e5%87%8f%e4%ba%a4%e6%9b%bf%e6%b3%95%e4%b8%8d%e6%81%a2%e5%a4%8d%e4%bd%99%e6%95%b0%e6%b3%95">#</a>
+</h4>
+<p>前边同恢复余数法，就是在发现余数为负时，如何处理。
+恢复余数法的方法是先加上[|y|]<sub>补</sub>，然后左移，然后处理下一位时再加上[-|y|]<sub>补</sub>，然后商1，再判断余数正负。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>记a为当前需要恢复余数的余数（为负数，因为负数才需要恢复）
+</span></span><span style="display:flex;"><span>b为除数绝对值的补码。
+</span></span><span style="display:flex;"><span>则操作为 a、a + b、2(a+b)、2(a+b) - b = 2a + b
+</span></span></code></pre></div><p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051628356.png" alt="image.png" /></p>
+<p>则以上操作可以直接简化为，发现余数为负，则直接先左移一位然后加上[|y|]<sub>补</sub>，可以达到同样的效果，还少了一步操作。
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051632762.png" alt="image.png" />
 注意！ 如果最后一个数得到的结果为负，则需要加上|y|]<sub>补</sub>来恢复余数！
 加/减 n + 1次，先减 减完如果为余数正则确定一位商，否则需要一次加法运算才可以确定。如果最后结果余数为负数，则需要再加一次，固为n + 2 次。
-移位 n 次，每次得到商都需要左移。</p><h3 id=补码的除法>补码的除法
-<a class=anchor href=#%e8%a1%a5%e7%a0%81%e7%9a%84%e9%99%a4%e6%b3%95>#</a></h3><h4 id=加减交替法>加减交替法
-<a class=anchor href=#%e5%8a%a0%e5%87%8f%e4%ba%a4%e6%9b%bf%e6%b3%95>#</a></h4><p>与加减交替法有点类似。补码运算一般采用双符号位运算，符号位也参与运算。
-补码除法：</p><ul><li>符号位参与运算。</li><li>被除数/余数、除数采用双符号位</li></ul><p>余数和除数同号，商1，余数 左移一位减去除数；
-余数和除数异号，商0，余数 左移一位加上除数。 重复n次</p><h5 id=举例-1>举例
-<a class=anchor href=#%e4%b8%be%e4%be%8b-1>#</a></h5><p>设机器字长为5位(含1位符号位，n=4)，x = +0.1000，y = - 0.1011，采用补码加减交替除法求x/y。
-[x]<sub>补</sub> = 00.1000，[y]<sub>补</sub> = 11.0101，[-y]<sub>补</sub> = 00.1010</p><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051657765.png alt=image.png></p><h6 id=主要步骤>主要步骤
-<a class=anchor href=#%e4%b8%bb%e8%a6%81%e6%ad%a5%e9%aa%a4>#</a></h6><p>余数和除数同号，商1，余数 左移一位减去除数；
-余数和除数异号，商0，余数 左移一位加上除数。 重复n次</p><h3 id=除法总结>除法总结
-<a class=anchor href=#%e9%99%a4%e6%b3%95%e6%80%bb%e7%bb%93>#</a></h3><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051701057.png alt=image.png></p><h2 id=数据的存储与排列>数据的存储与排列
-<a class=anchor href=#%e6%95%b0%e6%8d%ae%e7%9a%84%e5%ad%98%e5%82%a8%e4%b8%8e%e6%8e%92%e5%88%97>#</a></h2><h3 id=大小端模式>大小端模式
-<a class=anchor href=#%e5%a4%a7%e5%b0%8f%e7%ab%af%e6%a8%a1%e5%bc%8f>#</a></h3><p>一般数字分为最高有效字节<code>MSB</code>和最低有效字节<code>LSB</code>
+移位 n 次，每次得到商都需要左移。</p>
+<h3 id="补码的除法">
+  补码的除法
+  <a class="anchor" href="#%e8%a1%a5%e7%a0%81%e7%9a%84%e9%99%a4%e6%b3%95">#</a>
+</h3>
+<h4 id="加减交替法">
+  加减交替法
+  <a class="anchor" href="#%e5%8a%a0%e5%87%8f%e4%ba%a4%e6%9b%bf%e6%b3%95">#</a>
+</h4>
+<p>与加减交替法有点类似。补码运算一般采用双符号位运算，符号位也参与运算。
+补码除法：</p>
+<ul>
+<li>符号位参与运算。</li>
+<li>被除数/余数、除数采用双符号位</li>
+</ul>
+<p>余数和除数同号，商1，余数 左移一位减去除数；
+余数和除数异号，商0，余数 左移一位加上除数。 重复n次</p>
+<h5 id="举例-1">
+  举例
+  <a class="anchor" href="#%e4%b8%be%e4%be%8b-1">#</a>
+</h5>
+<p>设机器字长为5位(含1位符号位，n=4)，x = +0.1000，y = - 0.1011，采用补码加减交替除法求x/y。
+[x]<sub>补</sub> = 00.1000，[y]<sub>补</sub> = 11.0101，[-y]<sub>补</sub> = 00.1010</p>
+<p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051657765.png" alt="image.png" /></p>
+<h6 id="主要步骤">
+  主要步骤
+  <a class="anchor" href="#%e4%b8%bb%e8%a6%81%e6%ad%a5%e9%aa%a4">#</a>
+</h6>
+<p>余数和除数同号，商1，余数 左移一位减去除数；
+余数和除数异号，商0，余数 左移一位加上除数。 重复n次</p>
+<h3 id="除法总结">
+  除法总结
+  <a class="anchor" href="#%e9%99%a4%e6%b3%95%e6%80%bb%e7%bb%93">#</a>
+</h3>
+<p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051701057.png" alt="image.png" /></p>
+<h2 id="数据的存储与排列">
+  数据的存储与排列
+  <a class="anchor" href="#%e6%95%b0%e6%8d%ae%e7%9a%84%e5%ad%98%e5%82%a8%e4%b8%8e%e6%8e%92%e5%88%97">#</a>
+</h2>
+<h3 id="大小端模式">
+  大小端模式
+  <a class="anchor" href="#%e5%a4%a7%e5%b0%8f%e7%ab%af%e6%a8%a1%e5%bc%8f">#</a>
+</h3>
+<p>一般数字分为最高有效字节<code>MSB</code>和最低有效字节<code>LSB</code>
 例如：
 4字节的int 存储 <code>01 23 45 67H</code>其十进制数为<code>19088743D</code>
-其中<code>01</code>为最高有效字节，<code>67</code>为最低有效字节。</p><h4 id=大端模式>大端模式
-<a class=anchor href=#%e5%a4%a7%e7%ab%af%e6%a8%a1%e5%bc%8f>#</a></h4><p>大端模式一般适合人类正常阅读。
-按照地址从左往右排列，绝大部分人类阅读一般是从左往右，比如你看这个数字42316，都会认为4的位权是最大的，表示4万，然后是2千，3百等等。这就是大端模式，地址低位存数据高位。</p><h4 id=小端模式>小端模式
-<a class=anchor href=#%e5%b0%8f%e7%ab%af%e6%a8%a1%e5%bc%8f>#</a></h4><p>小端模式适合机器读取数据。
+其中<code>01</code>为最高有效字节，<code>67</code>为最低有效字节。</p>
+<h4 id="大端模式">
+  大端模式
+  <a class="anchor" href="#%e5%a4%a7%e7%ab%af%e6%a8%a1%e5%bc%8f">#</a>
+</h4>
+<p>大端模式一般适合人类正常阅读。
+按照地址从左往右排列，绝大部分人类阅读一般是从左往右，比如你看这个数字42316，都会认为4的位权是最大的，表示4万，然后是2千，3百等等。这就是大端模式，地址低位存数据高位。</p>
+<h4 id="小端模式">
+  小端模式
+  <a class="anchor" href="#%e5%b0%8f%e7%ab%af%e6%a8%a1%e5%bc%8f">#</a>
+</h4>
+<p>小端模式适合机器读取数据。
 机器读取数据时，一般是从低地址往高地址读取对应地址上的数据。然后CPU对数据处理时一般是进行加法运算，那么首先读取某个数据的低地址位更好，因为加法都是从低位开始加，不断加到高位。这就是小端模式，地址低位存数据低位。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051723202.png alt=image.png></p><h3 id=边界对齐>边界对齐
-<a class=anchor href=#%e8%be%b9%e7%95%8c%e5%af%b9%e9%bd%90>#</a></h3><p><em><strong>一句话：K字节大小的数据必须要存储在K的整数倍的地址上</strong></em>
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051723202.png" alt="image.png" /></p>
+<h3 id="边界对齐">
+  边界对齐
+  <a class="anchor" href="#%e8%be%b9%e7%95%8c%e5%af%b9%e9%bd%90">#</a>
+</h3>
+<p><em><strong>一句话：K字节大小的数据必须要存储在K的整数倍的地址上</strong></em>
 现代计算机通常是按字节编址，即每个字节对应一个地址。通常也支持按字，按半字，按字节寻址。
 假设存储字长为32位，则1个字为32bit，半字为16bit。每次访存只能读/写1个字。
 所谓按字节寻址是，每次往后1B，即8bit；所谓按半字寻址是，每次往后2B，即16bit；寻找第几号编址就是往后几次，不同编址方式也可以转换，例如按字寻址2号位的地址就相当于按字节编址8号位的地址（逻辑左移2位），一般都是最终转换为按字节编址。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051956972.png alt=image.png>
-所谓边界对齐，就是4B的数据即4个字节的数据（int，float）只能占用4的整数倍数的地址，2B就只能占用2的整数倍的地址。而计算机每次读取数据都是读一个字或一个半字，也就是2B或1B，如果不使用对齐，在访问图2.11中的半字1时，需要先访问第二个半字的高位，然后再访问第三个半字的低位，需要访问两次，费时间。边界对齐是以空间换时间的。</p><h2 id=浮点数的表示>浮点数的表示
-<a class=anchor href=#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e8%a1%a8%e7%a4%ba>#</a></h2><p>定点数的缺陷：定点数表示的数字范围有限，不能无限制增加范围。
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306051956972.png" alt="image.png" />
+所谓边界对齐，就是4B的数据即4个字节的数据（int，float）只能占用4的整数倍数的地址，2B就只能占用2的整数倍的地址。而计算机每次读取数据都是读一个字或一个半字，也就是2B或1B，如果不使用对齐，在访问图2.11中的半字1时，需要先访问第二个半字的高位，然后再访问第三个半字的低位，需要访问两次，费时间。边界对齐是以空间换时间的。</p>
+<h2 id="浮点数的表示">
+  浮点数的表示
+  <a class="anchor" href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e8%a1%a8%e7%a4%ba">#</a>
+</h2>
+<p>定点数的缺陷：定点数表示的数字范围有限，不能无限制增加范围。
 浮点数与科学记数法表示的思想类似。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052029990.png alt=image.png>
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052029990.png" alt="image.png" />
 例如用科学记数法表示的3.026 * 10<sup>11</sup>，可以转换为+11+3.026。其中11为阶码，3.026表示尾数。
 阶码反映数据范围，以及小数点的位。
 尾数反映数值部分的位数，与数值的精度。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052043951.png alt=image.png>
-例如其中的b = 0 10 0 01001 实际表示的数据应为+1.001，但是b丢失了最后一位，导数b最终的数为+ 1.000。但是为了避免精度损失最少，并且表示的范围尽量大，那就应该对浮点数进行规格化！</p><h3 id=浮点数规格>浮点数规格
-<a class=anchor href=#%e6%b5%ae%e7%82%b9%e6%95%b0%e8%a7%84%e6%a0%bc>#</a></h3><p>与科学记数法类似，保证尾数部分的最高位不是无效位（不表示数据信息的位），以上图中的b为例，若b = 0 01 0 1001，即b = 2<sup>1</sup> * (2<sup>-1</sup> + 2<sup>-4</sup>) = +1.001 正确表示出了数据。这种情况为左规，尾数算数左移一位，阶码减1。同理当用当前的方法表示时，进行运算后，尾数部分溢出，则需要右规，即尾数算数右移，阶码加1。
-<img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052102021.png alt=image.png></p><h4 id=规格化>规格化
-<a class=anchor href=#%e8%a7%84%e6%a0%bc%e5%8c%96>#</a></h4><p><img src=https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052113642.png alt=image.png>
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052043951.png" alt="image.png" />
+例如其中的b = 0 10 0 01001 实际表示的数据应为+1.001，但是b丢失了最后一位，导数b最终的数为+ 1.000。但是为了避免精度损失最少，并且表示的范围尽量大，那就应该对浮点数进行规格化！</p>
+<h3 id="浮点数规格">
+  浮点数规格
+  <a class="anchor" href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e8%a7%84%e6%a0%bc">#</a>
+</h3>
+<p>与科学记数法类似，保证尾数部分的最高位不是无效位（不表示数据信息的位），以上图中的b为例，若b = 0 01 0 1001，即b = 2<sup>1</sup> * (2<sup>-1</sup> + 2<sup>-4</sup>) = +1.001 正确表示出了数据。这种情况为左规，尾数算数左移一位，阶码减1。同理当用当前的方法表示时，进行运算后，尾数部分溢出，则需要右规，即尾数算数右移，阶码加1。
+
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052102021.png" alt="image.png" /></p>
+<h4 id="规格化">
+  规格化
+  <a class="anchor" href="#%e8%a7%84%e6%a0%bc%e5%8c%96">#</a>
+</h4>
+<p>
+  <img src="https://cdn.staticaly.com/gh/ivylet/blog_picg-@master/img/202306052113642.png" alt="image.png" />
 浮点数表示的范围也有限，对浮点数规格化一般称对尾数的规格化，注意补码表示最高位和符号位是不同的。
-所以有没有一种规格，能够确定阶码，尾数用原码还是补码，各多少位呢？下面就来了1</p><h3 id=ieee754表示>IEEE754表示
-<a class=anchor href=#ieee754%e8%a1%a8%e7%a4%ba>#</a></h3><p>IEEE754就是一种标准！</p><h2 id=浮点数的加减运算>浮点数的加减运算
-<a class=anchor href=#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e5%8a%a0%e5%87%8f%e8%bf%90%e7%ae%97>#</a></h2></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/commit/69a59e548abf11740ab5161c7afda829ee1d4128 title='最后修改者 saytaytay | August 25, 2024' target=_blank rel=noopener><img src=/svg/calendar.svg class=book-icon alt=Calendar>
-<span>August 25, 2024</span></a></div><div><a class="flex align-center" href=https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter03/CO/cpt02/_index.md target=_blank rel=noopener><img src=/svg/edit.svg class=book-icon alt=Edit>
-<span>编辑本页</span></a></div><footer id=footer><div class=container>&copy; 2024, By ivylet</a>。</div></footer></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#移位运算>移位运算</a><ul><li><a href=#算数移位>算数移位</a></li><li><a href=#逻辑移位>逻辑移位</a></li><li><a href=#循环移位>循环移位</a></li></ul></li><li><a href=#运算器>运算器</a></li><li><a href=#定点数的表示>定点数的表示</a></li><li><a href=#定点数的运算>定点数的运算</a><ul><li><a href=#原码的除法>原码的除法</a></li><li><a href=#补码的除法>补码的除法</a></li><li><a href=#除法总结>除法总结</a></li></ul></li><li><a href=#数据的存储与排列>数据的存储与排列</a><ul><li><a href=#大小端模式>大小端模式</a></li><li><a href=#边界对齐>边界对齐</a></li></ul></li><li><a href=#浮点数的表示>浮点数的表示</a><ul><li><a href=#浮点数规格>浮点数规格</a></li><li><a href=#ieee754表示>IEEE754表示</a></li></ul></li><li><a href=#浮点数的加减运算>浮点数的加减运算</a></li></ul></li></ul></nav></div></aside></main></body></html>
+所以有没有一种规格，能够确定阶码，尾数用原码还是补码，各多少位呢？下面就来了1</p>
+<h3 id="ieee754表示">
+  IEEE754表示
+  <a class="anchor" href="#ieee754%e8%a1%a8%e7%a4%ba">#</a>
+</h3>
+<p>IEEE754就是一种标准！</p>
+<h2 id="浮点数的运算">
+  浮点数的运算
+  <a class="anchor" href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e8%bf%90%e7%ae%97">#</a>
+</h2>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+  <div><a class="flex align-center" href="https://github.com/ivylet/book-shelf/commit/efc1ef3cc9e484fe51dbeb410a71969db8c8d721" title='最后修改者 saytaytay | June 5, 2023' target="_blank" rel="noopener">
+      <img src="/svg/calendar.svg" class="book-icon" alt="Calendar" />
+      <span>June 5, 2023</span>
+    </a>
+  </div>
+
+
+
+  <div>
+    <a class="flex align-center" href="https://github.com/ivylet/book-shelf/edit/main/exampleSite/content/docs/chapter03/CO/cpt02/_index.md" target="_blank" rel="noopener">
+      <img src="/svg/edit.svg" class="book-icon" alt="Edit" />
+      <span>编辑本页</span>
+    </a>
+  </div>
+
+<footer id="footer">
+  <div class="container">
+      &copy; 2023, By ivylet</a>。
+      
+  </div>
+</footer>
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#移位运算">移位运算</a>
+          <ul>
+            <li><a href="#算数移位">算数移位</a></li>
+            <li><a href="#逻辑移位">逻辑移位</a></li>
+            <li><a href="#循环移位">循环移位</a></li>
+          </ul>
+        </li>
+        <li><a href="#运算器">运算器</a></li>
+        <li><a href="#定点数的表示">定点数的表示</a></li>
+        <li><a href="#定点数的运算">定点数的运算</a>
+          <ul>
+            <li><a href="#原码的除法">原码的除法</a></li>
+            <li><a href="#补码的除法">补码的除法</a></li>
+            <li><a href="#除法总结">除法总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据的存储与排列">数据的存储与排列</a>
+          <ul>
+            <li><a href="#大小端模式">大小端模式</a></li>
+            <li><a href="#边界对齐">边界对齐</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点数的表示">浮点数的表示</a>
+          <ul>
+            <li><a href="#浮点数规格">浮点数规格</a></li>
+            <li><a href="#ieee754表示">IEEE754表示</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点数的运算">浮点数的运算</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
