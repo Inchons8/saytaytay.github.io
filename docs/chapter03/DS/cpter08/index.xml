@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>排序算法 on QBook</title>
-    <link>http://ivylet.github.io/docs/chapter03/DS/cpter08/</link>
-    <description>Recent content in 排序算法 on QBook</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="http://ivylet.github.io/docs/chapter03/DS/cpter08/index.xml" rel="self" type="application/rss+xml" />
+    <title>排序算法 on Blowfish</title>
+    <link>http://localhost:1313/docs/chapter03/ds/cpter08/</link>
+    <description>Recent content in 排序算法 on Blowfish</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 </copyright>
+    <atom:link href="http://localhost:1313/docs/chapter03/ds/cpter08/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
