@@ -162,7 +162,6 @@
   
   
   <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
 <div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
   <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
   <div class="relative max-w-[64rem] ml-auto mr-auto">
@@ -581,6 +580,16 @@
 
 
 
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
 
   </div>
 </div>
@@ -603,9 +612,8 @@
     <div class="relative">
         <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
         <div class="mx-auto max-w-7xl p-0">
-            <div class="relative shadow-xl sm:overflow-hidden rounded-2xl">
-                <div class="absolute inset-0">
-                    
+            <div class="relative sm:overflow-hidden">
+                <div class="fixed inset-x-0 top-0" style="z-index:-10">
                     
                     
                         
@@ -613,13 +621,21 @@
                         
                     
                     
-                    <img class="h-full w-full object-cover m-0 nozoom" src="/img/background.jpg">
+                        
+                            
+                        
+                    
+                    
+                    <img class="w-full h-[1000px] object-cover m-0 nozoom" src="/img/background.jpg" role="presentation">
                     <div
-                        class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply">
+                        class="absolute inset-0 h-[1000px] bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+                    </div>
+                    <div
+                        class="opacity-60 absolute inset-0 h-[1000px] bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
                     </div>
                     
                 </div>
-                <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 flex flex-col items-center justify-center text-center">
+                <div class="relative px-1 py-1 flex flex-col items-center justify-center text-center">
                     
                         
                         
@@ -633,11 +649,11 @@
                                 alt="Yike" src="/img/logo_hu8958217074669229076.jpg" />
                         
                     
-                    <h1 class="mb-2 text-4xl font-extrabold text-neutral-200">
+                    <h1 class="mb-2 text-4xl font-extrabold text-neutral-800 dark:text-neutral-200">
                         Yike
                     </h1>
                     
-                    <h2 class="mt-0 mb-0 text-xl text-neutral-300">
+                    <h2 class="mt-0 mb-0 text-xl text-neutral-800 dark:text-neutral-300">
                         锦瑟无端五十弦，一弦一柱思华年
                     </h2>
                     
@@ -646,7 +662,7 @@
                         <div class="flex flex-wrap">
                             
                             
-                            <a class="px-1 hover:text-primary-400 text-primary-300" href="mailto:hello@your_domain.com" target="_blank"
+                            <a class="px-1 hover:text-primary-400 text-primary-800 dark:text-primary-200" href="mailto:hello@your_domain.com" target="_blank"
                                 aria-label="Email" rel="me noopener noreferrer">
 
   <span class="relative block icon">
@@ -658,7 +674,7 @@
                             
                             
                             
-                            <a class="px-1 hover:text-primary-400 text-primary-300" href="https://www.apple.com" target="_blank"
+                            <a class="px-1 hover:text-primary-400 text-primary-800 dark:text-primary-200" href="https://www.apple.com" target="_blank"
                                 aria-label="Apple" rel="me noopener noreferrer">
 
   <span class="relative block icon">
@@ -670,7 +686,7 @@
                             
                             
                             
-                            <a class="px-1 hover:text-primary-400 text-primary-300" href="https://github.com/username" target="_blank"
+                            <a class="px-1 hover:text-primary-400 text-primary-800 dark:text-primary-200" href="https://github.com/username" target="_blank"
                                 aria-label="Github" rel="me noopener noreferrer">
 
   <span class="relative block icon">
@@ -682,7 +698,7 @@
                             
                             
                             
-                            <a class="px-1 hover:text-primary-400 text-primary-300" href="https://www.zhihu.com" target="_blank"
+                            <a class="px-1 hover:text-primary-400 text-primary-800 dark:text-primary-200" href="https://www.zhihu.com" target="_blank"
                                 aria-label="Zhihu" rel="me noopener noreferrer">
 
 </a>
@@ -691,7 +707,7 @@
                         </div>
                         
                     </div>
-                    <section class="prose prose-invert"><p>你好，欢迎访问！我是一名计算机科学专业的研究生，日常会写一些笔记，分享一些事情。</p>
+                    <section class="prose dark:prose-invert"><p>你好，欢迎访问！我是一名计算机科学专业的研究生，日常会写一些笔记，分享一些事情。</p>
 </section>
                 </div>
             </div>
@@ -736,8 +752,14 @@
 
 
 
-  <a class="flex flex-wrap article " href="/posts/chapter02/acwing/dp/package/">
-    <div class=" mt-3 md:mt-0">
+
+
+  <a class="flex flex-wrap article  max-w-prose" href="/posts/chapter02/acwing/dp/package/">
+    
+        
+        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/img/background_hu12735159344993758130.jpg);"></div>
+        
+      <div class=" mt-3 md:mt-0">
       <div class="items-center text-left text-xl font-semibold">
         
         <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
@@ -794,8 +816,38 @@
 </div>
 
 
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
 
 
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
 
 
 
@@ -828,8 +880,14 @@
 
 
 
-  <a class="flex flex-wrap article " href="/posts/chapter02/acwing/base/greedy/">
-    <div class=" mt-3 md:mt-0">
+
+
+  <a class="flex flex-wrap article  max-w-prose" href="/posts/chapter02/acwing/base/greedy/">
+    
+        
+        <div class="w-full md:w-auto h-full thumbnail nozoom thumbnailshadow md:mr-7" style="background-image:url(/img/background_hu12735159344993758130.jpg);"></div>
+        
+      <div class=" mt-3 md:mt-0">
       <div class="items-center text-left text-xl font-semibold">
         
         <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
@@ -886,8 +944,38 @@
 </div>
 
 
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
 
 
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
 
 
 
@@ -903,7 +991,29 @@
 
 
 
+
+<div class="mt-10 flex justify-center">
+  <a href="/posts">
+    <button
+      class="bg-transparent hover:text-primary-500 prose dark:prose-invert font-semibold hover:text-white py-2 px-4 border border-primary-500 hover:border-transparent rounded">
+      
+    </button>
+  </a>
+</div>
+
+
+
 </section>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
 
   
 

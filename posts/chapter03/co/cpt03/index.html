@@ -143,7 +143,6 @@
   
   
   <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
 <div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
   <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
   <div class="relative max-w-[64rem] ml-auto mr-auto">
@@ -562,6 +561,16 @@
 
 
 
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
 
   </div>
 </div>
@@ -578,6 +587,42 @@
     <main id="main-content" class="grow">
       
 
+
+
+
+
+
+ 
+  
+   
+  
+ 
+
+
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/background_hu15552646220030899425.jpg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
 
  <header>
   
@@ -628,7 +673,461 @@
   <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
   
   </header>
-  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+  <section class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    
+    <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-[140px]">
+        <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#存储器的层次结构">存储器的层次结构</a></li>
+    <li><a href="#存储器的分类">存储器的分类</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#按层次分类">按层次分类</a></li>
+            <li><a href="#按存储介质分类">按存储介质分类</a></li>
+            <li><a href="#按存取方式分类">按存取方式分类</a></li>
+            <li><a href="#按信息的更改性分类">按信息的更改性分类</a></li>
+            <li><a href="#按信息的可保存性分类">按信息的可保存性分类</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储器的性能指标">存储器的性能指标</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#主存储器的基本组成">主存储器的基本组成</a>
+      <ul>
+        <li><a href="#基本半导体元件">基本半导体元件</a></li>
+        <li><a href="#存储芯片的结构">存储芯片的结构</a></li>
+        <li><a href="#寻址">寻址</a></li>
+      </ul>
+    </li>
+    <li><a href="#sram与dram">SRAM与DRAM</a>
+      <ul>
+        <li><a href="#存储元件不同而导致的特性差异">存储元件不同而导致的特性差异</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#dram的刷新">DRAM的刷新</a>
+          <ul>
+            <li><a href="#多久需要刷新一次">多久需要刷新一次？</a></li>
+            <li><a href="#每次刷新多少存储单元">每次刷新多少存储单元？</a></li>
+            <li><a href="#如何刷新">如何刷新？</a></li>
+            <li><a href="#在什么时候刷新呢">在什么时候刷新呢？</a></li>
+          </ul>
+        </li>
+        <li><a href="#dram的地址线复用技术">DRAM的地址线复用技术</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#只读存储器rom">只读存储器ROM</a>
+      <ul>
+        <li><a href="#常见rom">常见ROM</a></li>
+        <li><a href="#计算机内重要的rom">计算机内重要的ROM</a></li>
+      </ul>
+    </li>
+    <li><a href="#双端口ram和多模块存储器">双端口RAM和多模块存储器</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#双端口ram大纲已删">双端口RAM（大纲已删）</a></li>
+        <li><a href="#多模块存储器">多模块存储器</a>
+          <ul>
+            <li><a href="#单体多字存储器">单体多字存储器</a></li>
+            <li><a href="#多体并行存储器">多体并行存储器</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#单块存储芯片与cpu连接">单块存储芯片与CPU连接</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#多块存储芯片与cpu连接">多块存储芯片与CPU连接</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#位扩展扩展位数">位扩展（扩展位数）</a></li>
+            <li><a href="#字扩展主存容量扩展">字扩展（主存容量扩展）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#关于译码器知识补充">关于译码器知识补充</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#磁盘存储器">磁盘存储器</a>
+      <ul>
+        <li><a href="#磁盘设备的组成">磁盘设备的组成</a></li>
+        <li><a href="#磁盘的性能指标">磁盘的性能指标</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#磁盘地址">磁盘地址</a></li>
+        <li><a href="#磁盘的工作过程">磁盘的工作过程</a></li>
+        <li><a href="#磁盘阵列raid">磁盘阵列（RAID）</a></li>
+      </ul>
+    </li>
+    <li><a href="#固态硬盘ssd">固态硬盘SSD</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#局部性原理">局部性原理</a></li>
+    <li><a href="#cache的基本工作原理">Cache的基本工作原理</a>
+      <ul>
+        <li><a href="#cache中的有效位">Cache中的有效位</a></li>
+        <li><a href="#cpu找cache中的访问过程">CPU找Cache中的访问过程</a></li>
+        <li><a href="#平均访问时间">平均访问时间</a></li>
+        <li><a href="#几个问题">几个问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache行与主存块之间的映射方式">Cache行与主存块之间的映射方式</a>
+      <ul>
+        <li><a href="#全相联映射随意映射">全相联映射（随意映射）</a></li>
+        <li><a href="#直接映射">直接映射</a></li>
+        <li><a href="#组相联映射">组相联映射</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache中主存块的替换算法">Cache中主存块的替换算法</a>
+      <ul>
+        <li><a href="#随机替换算法rand">随机替换算法RAND</a></li>
+        <li><a href="#先进先出算法fifo">先进先出算法FIFO</a></li>
+        <li><a href="#最近最少用算法lru">最近最少用算法LRU</a></li>
+        <li><a href="#最不常用算法lfu">最不常用算法LFU</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache的一致性问题">Cache的一致性问题</a>
+      <ul>
+        <li><a href="#写命中">写命中</a>
+          <ul>
+            <li><a href="#写回法">写回法</a></li>
+            <li><a href="#全写法写直通法">全写法（写直通法）</a></li>
+          </ul>
+        </li>
+        <li><a href="#写未命中">写未命中</a>
+          <ul>
+            <li><a href="#写分配法">写分配法</a></li>
+            <li><a href="#非写分配法">非写分配法</a></li>
+          </ul>
+        </li>
+        <li><a href="#多级cache">多级Cache</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#虚拟存储器的基本概念">虚拟存储器的基本概念</a></li>
+    <li><a href="#页式虚拟存储器">页式虚拟存储器</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#页表">页表</a></li>
+            <li><a href="#快表">快表</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#段式虚拟存储器">段式虚拟存储器</a></li>
+    <li><a href="#段页式虚拟存储器">段页式虚拟存储器</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#存储器的层次结构">存储器的层次结构</a></li>
+    <li><a href="#存储器的分类">存储器的分类</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#按层次分类">按层次分类</a></li>
+            <li><a href="#按存储介质分类">按存储介质分类</a></li>
+            <li><a href="#按存取方式分类">按存取方式分类</a></li>
+            <li><a href="#按信息的更改性分类">按信息的更改性分类</a></li>
+            <li><a href="#按信息的可保存性分类">按信息的可保存性分类</a></li>
+          </ul>
+        </li>
+        <li><a href="#存储器的性能指标">存储器的性能指标</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#主存储器的基本组成">主存储器的基本组成</a>
+      <ul>
+        <li><a href="#基本半导体元件">基本半导体元件</a></li>
+        <li><a href="#存储芯片的结构">存储芯片的结构</a></li>
+        <li><a href="#寻址">寻址</a></li>
+      </ul>
+    </li>
+    <li><a href="#sram与dram">SRAM与DRAM</a>
+      <ul>
+        <li><a href="#存储元件不同而导致的特性差异">存储元件不同而导致的特性差异</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#dram的刷新">DRAM的刷新</a>
+          <ul>
+            <li><a href="#多久需要刷新一次">多久需要刷新一次？</a></li>
+            <li><a href="#每次刷新多少存储单元">每次刷新多少存储单元？</a></li>
+            <li><a href="#如何刷新">如何刷新？</a></li>
+            <li><a href="#在什么时候刷新呢">在什么时候刷新呢？</a></li>
+          </ul>
+        </li>
+        <li><a href="#dram的地址线复用技术">DRAM的地址线复用技术</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#只读存储器rom">只读存储器ROM</a>
+      <ul>
+        <li><a href="#常见rom">常见ROM</a></li>
+        <li><a href="#计算机内重要的rom">计算机内重要的ROM</a></li>
+      </ul>
+    </li>
+    <li><a href="#双端口ram和多模块存储器">双端口RAM和多模块存储器</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#双端口ram大纲已删">双端口RAM（大纲已删）</a></li>
+        <li><a href="#多模块存储器">多模块存储器</a>
+          <ul>
+            <li><a href="#单体多字存储器">单体多字存储器</a></li>
+            <li><a href="#多体并行存储器">多体并行存储器</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#单块存储芯片与cpu连接">单块存储芯片与CPU连接</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#多块存储芯片与cpu连接">多块存储芯片与CPU连接</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#位扩展扩展位数">位扩展（扩展位数）</a></li>
+            <li><a href="#字扩展主存容量扩展">字扩展（主存容量扩展）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#关于译码器知识补充">关于译码器知识补充</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#磁盘存储器">磁盘存储器</a>
+      <ul>
+        <li><a href="#磁盘设备的组成">磁盘设备的组成</a></li>
+        <li><a href="#磁盘的性能指标">磁盘的性能指标</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#磁盘地址">磁盘地址</a></li>
+        <li><a href="#磁盘的工作过程">磁盘的工作过程</a></li>
+        <li><a href="#磁盘阵列raid">磁盘阵列（RAID）</a></li>
+      </ul>
+    </li>
+    <li><a href="#固态硬盘ssd">固态硬盘SSD</a>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#局部性原理">局部性原理</a></li>
+    <li><a href="#cache的基本工作原理">Cache的基本工作原理</a>
+      <ul>
+        <li><a href="#cache中的有效位">Cache中的有效位</a></li>
+        <li><a href="#cpu找cache中的访问过程">CPU找Cache中的访问过程</a></li>
+        <li><a href="#平均访问时间">平均访问时间</a></li>
+        <li><a href="#几个问题">几个问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache行与主存块之间的映射方式">Cache行与主存块之间的映射方式</a>
+      <ul>
+        <li><a href="#全相联映射随意映射">全相联映射（随意映射）</a></li>
+        <li><a href="#直接映射">直接映射</a></li>
+        <li><a href="#组相联映射">组相联映射</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache中主存块的替换算法">Cache中主存块的替换算法</a>
+      <ul>
+        <li><a href="#随机替换算法rand">随机替换算法RAND</a></li>
+        <li><a href="#先进先出算法fifo">先进先出算法FIFO</a></li>
+        <li><a href="#最近最少用算法lru">最近最少用算法LRU</a></li>
+        <li><a href="#最不常用算法lfu">最不常用算法LFU</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache的一致性问题">Cache的一致性问题</a>
+      <ul>
+        <li><a href="#写命中">写命中</a>
+          <ul>
+            <li><a href="#写回法">写回法</a></li>
+            <li><a href="#全写法写直通法">全写法（写直通法）</a></li>
+          </ul>
+        </li>
+        <li><a href="#写未命中">写未命中</a>
+          <ul>
+            <li><a href="#写分配法">写分配法</a></li>
+            <li><a href="#非写分配法">非写分配法</a></li>
+          </ul>
+        </li>
+        <li><a href="#多级cache">多级Cache</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#虚拟存储器的基本概念">虚拟存储器的基本概念</a></li>
+    <li><a href="#页式虚拟存储器">页式虚拟存储器</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#页表">页表</a></li>
+            <li><a href="#快表">快表</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#段式虚拟存储器">段式虚拟存储器</a></li>
+    <li><a href="#段页式虚拟存储器">段页式虚拟存储器</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+
+      </div>
+    </div>
     
     <div class="min-w-0 min-h-0 max-w-prose">
       

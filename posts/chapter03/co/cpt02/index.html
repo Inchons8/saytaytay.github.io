@@ -143,7 +143,6 @@
   
   
   <div class="min-h-[148px]"></div>
-<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
 <div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
   <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
   <div class="relative max-w-[64rem] ml-auto mr-auto">
@@ -562,6 +561,16 @@
 
 
 
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
 
   </div>
 </div>
@@ -578,6 +587,42 @@
     <main id="main-content" class="grow">
       
 
+
+
+
+
+
+ 
+  
+   
+  
+ 
+
+
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/background_hu15552646220030899425.jpg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
 
  <header>
   
@@ -628,7 +673,215 @@
   <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
   
   </header>
-  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+  <section class="mt-12 prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+    
+    <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 lg:sticky lg:top-[140px]">
+        <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#移位运算">移位运算</a>
+      <ul>
+        <li><a href="#算数移位">算数移位</a>
+          <ul>
+            <li><a href="#原码">原码</a></li>
+            <li><a href="#反码">反码</a></li>
+            <li><a href="#补码">补码</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#逻辑移位">逻辑移位</a></li>
+        <li><a href="#循环移位">循环移位</a></li>
+      </ul>
+    </li>
+    <li><a href="#运算器">运算器</a></li>
+    <li><a href="#定点数的表示">定点数的表示</a></li>
+    <li><a href="#定点数的运算">定点数的运算</a>
+      <ul>
+        <li><a href="#原码的除法">原码的除法</a>
+          <ul>
+            <li><a href="#恢复余数法">恢复余数法</a></li>
+            <li><a href="#加减交替法不恢复余数法">加减交替法（不恢复余数法）</a></li>
+          </ul>
+        </li>
+        <li><a href="#补码的除法">补码的除法</a>
+          <ul>
+            <li><a href="#加减交替法">加减交替法</a></li>
+          </ul>
+        </li>
+        <li><a href="#除法总结">除法总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据的存储与排列">数据的存储与排列</a>
+      <ul>
+        <li><a href="#大小端模式">大小端模式</a>
+          <ul>
+            <li><a href="#大端模式">大端模式</a></li>
+            <li><a href="#小端模式">小端模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#边界对齐">边界对齐</a></li>
+      </ul>
+    </li>
+    <li><a href="#浮点数的表示">浮点数的表示</a>
+      <ul>
+        <li><a href="#浮点数规格">浮点数规格</a>
+          <ul>
+            <li><a href="#规格化">规格化</a></li>
+          </ul>
+        </li>
+        <li><a href="#ieee754表示">IEEE754表示</a></li>
+      </ul>
+    </li>
+    <li><a href="#浮点数的加减运算">浮点数的加减运算</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#移位运算">移位运算</a>
+      <ul>
+        <li><a href="#算数移位">算数移位</a>
+          <ul>
+            <li><a href="#原码">原码</a></li>
+            <li><a href="#反码">反码</a></li>
+            <li><a href="#补码">补码</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#逻辑移位">逻辑移位</a></li>
+        <li><a href="#循环移位">循环移位</a></li>
+      </ul>
+    </li>
+    <li><a href="#运算器">运算器</a></li>
+    <li><a href="#定点数的表示">定点数的表示</a></li>
+    <li><a href="#定点数的运算">定点数的运算</a>
+      <ul>
+        <li><a href="#原码的除法">原码的除法</a>
+          <ul>
+            <li><a href="#恢复余数法">恢复余数法</a></li>
+            <li><a href="#加减交替法不恢复余数法">加减交替法（不恢复余数法）</a></li>
+          </ul>
+        </li>
+        <li><a href="#补码的除法">补码的除法</a>
+          <ul>
+            <li><a href="#加减交替法">加减交替法</a></li>
+          </ul>
+        </li>
+        <li><a href="#除法总结">除法总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据的存储与排列">数据的存储与排列</a>
+      <ul>
+        <li><a href="#大小端模式">大小端模式</a>
+          <ul>
+            <li><a href="#大端模式">大端模式</a></li>
+            <li><a href="#小端模式">小端模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#边界对齐">边界对齐</a></li>
+      </ul>
+    </li>
+    <li><a href="#浮点数的表示">浮点数的表示</a>
+      <ul>
+        <li><a href="#浮点数规格">浮点数规格</a>
+          <ul>
+            <li><a href="#规格化">规格化</a></li>
+          </ul>
+        </li>
+        <li><a href="#ieee754表示">IEEE754表示</a></li>
+      </ul>
+    </li>
+    <li><a href="#浮点数的加减运算">浮点数的加减运算</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+
+      </div>
+    </div>
     
     <div class="min-w-0 min-h-0 max-w-prose">
       
