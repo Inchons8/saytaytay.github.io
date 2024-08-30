@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://ivylet.github.io/sitemap.xml
