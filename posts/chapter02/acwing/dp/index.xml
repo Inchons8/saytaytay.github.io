@@ -1,1 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>锦瑟无端</title><link>https://ivylet.github.io/posts/chapter02/acwing/dp/</link><description>Recent content on 锦瑟无端</description><generator>Hugo -- gohugo.io</generator><language>cn</language><managingEditor>1209073747@qq.com (Yike)</managingEditor><webMaster>1209073747@qq.com (Yike)</webMaster><copyright>Copy, _right?_ :thinking_face:</copyright><atom:link href="https://ivylet.github.io/posts/chapter02/acwing/dp/index.xml" rel="self" type="application/rss+xml"/><item><title>DP</title><link>https://ivylet.github.io/posts/chapter02/acwing/dp/dp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>1209073747@qq.com (Yike)</author><guid>https://ivylet.github.io/posts/chapter02/acwing/dp/dp/</guid><description>背包DP # 01背包 # 每件物品最多只用一次。</description></item><item><title>背包问题</title><link>https://ivylet.github.io/posts/chapter02/acwing/dp/package/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>1209073747@qq.com (Yike)</author><guid>https://ivylet.github.io/posts/chapter02/acwing/dp/package/</guid><description>01 背包问题 # 每件物品最多只用一次。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>锦瑟无端</title>
+    <link>http://localhost:1313/posts/chapter02/acwing/dp/</link>
+    <description>Recent content on 锦瑟无端</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>cn</language>
+    <managingEditor>1209073747@qq.com (Yike)</managingEditor>
+    <webMaster>1209073747@qq.com (Yike)</webMaster>
+    <copyright>Copy, _right?_ :thinking_face:</copyright>
+    <atom:link href="http://localhost:1313/posts/chapter02/acwing/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DP</title>
+      <link>http://localhost:1313/posts/chapter02/acwing/dp/dp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>1209073747@qq.com (Yike)</author>
+      <guid>http://localhost:1313/posts/chapter02/acwing/dp/dp/</guid>
+      <description>背包DP #01背包 #每件物品最多只用一次。</description>
+      
+    </item>
+    
+    <item>
+      <title>背包问题</title>
+      <link>http://localhost:1313/posts/chapter02/acwing/dp/package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>1209073747@qq.com (Yike)</author>
+      <guid>http://localhost:1313/posts/chapter02/acwing/dp/package/</guid>
+      <description>01 背包问题 #每件物品最多只用一次。</description>
+      
+    </item>
+    
+  </channel>
+</rss>
